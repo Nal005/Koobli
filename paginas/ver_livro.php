@@ -1,7 +1,7 @@
 <?php
 session_start();
-include "includes/config.php";
-include "includes/livros.php";
+include __DIR__ . "/../includes/config.php";
+include __DIR__ . "/../includes/livros.php";
 
 if (!isset($_SESSION['user_id'])) {
     header("Location: login.php");
@@ -15,7 +15,7 @@ $isbn = $_GET['isbn'] ?? '';
 $capa = $_GET['capa'] ?? '';
 
 if (!$apiId || !$titulo) {
-    header("Location: index.php");
+    header("Location: ../index.php");
     exit;
 }
 

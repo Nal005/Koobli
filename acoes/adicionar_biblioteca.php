@@ -1,10 +1,10 @@
 <?php
 session_start();
-include "includes/config.php";
-include "includes/livros.php";
+include __DIR__ . "/../includes/config.php";
+include __DIR__ . "/../includes/livros.php";
 
 if (!isset($_SESSION['user_id'])) {
-    header("Location: login.php");
+    header("Location: ../paginas/login.php");
     exit;
 }
 
@@ -35,5 +35,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
-header("Location: index.php");
+header("Location: ../index.php");
 exit;

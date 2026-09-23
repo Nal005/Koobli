@@ -1,13 +1,14 @@
 <?php
 session_start();
-include "includes/header.php";
+$raiz = "../";
+include __DIR__ . "/../includes/header.php";
 
 if (!isset($_SESSION['user_id'])) {
     header("Location: login.php");
     exit;
 }
 
-include "includes/config.php";
+include __DIR__ . "/../includes/config.php";
 
 $userId = $_SESSION['user_id'];
 
@@ -46,12 +47,12 @@ $rotulos = [
     <div class="sidebar-wrapper">
 
     <div class="brand-bar">
-        <img src="imgs/noback.png" alt="Koobli" class="logo-icon">
+        <img src="../imgs/noback.png" alt="Koobli" class="logo-icon">
     </div>
 
     <aside class="sidebar">
         <nav class="sidebar-nav">
-            <a href="index.php" title="Home" class="active"><i class="fi fi-rs-home"></i></a>
+            <a href="../index.php" title="Home" class="active"><i class="fi fi-rs-home"></i></a>
             <a href="biblioteca.php" title="Biblioteca"><i class="fi fi-rs-books"></i></a>
             <a href="favoritos.php" title="Favoritos"><i class="fi fi-rs-bookmark"></i></a>
             <a href="notificacoes.php" title="Notificações"><i class="fi fi-rs-bell"></i></a>
@@ -95,7 +96,7 @@ $rotulos = [
                         </a>
                         <p><?php echo htmlspecialchars($livro['autor_principal']); ?></p>
 
-                        <form method="POST" action="atualizar_estado.php" class="form-estado">
+                        <form method="POST" action="../acoes/atualizar_estado.php" class="form-estado">
                             <input type="hidden" name="biblioteca_id" value="<?php echo $livro['biblioteca_id']; ?>">
                             <select name="estado" onchange="this.form.submit()">
                                 <?php foreach ($rotulos as $valor => $texto): ?>
@@ -129,4 +130,4 @@ document.querySelectorAll('.aba-btn').forEach(btn => {
 });
 </script>
 
-<?php include "includes/footer.php"; ?>
+<?php include __DIR__ . "/../includes/footer.php"; ?>

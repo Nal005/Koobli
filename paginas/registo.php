@@ -1,6 +1,6 @@
 <?php
 session_start();
-include "includes/config.php";
+include __DIR__ . "/../includes/config.php";
 
 $erro = "";
 
@@ -29,7 +29,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if ($stmt->execute()) {
                 $_SESSION['user_id'] = $stmt->insert_id;
                 $_SESSION['username'] = $username;
-                header("Location: index.php");
+                header("Location: ../index.php");
                 exit;
             } else {
                 $erro = "Erro ao criar conta. Tenta novamente.";
@@ -47,7 +47,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <head>
     <meta charset="UTF-8">
     <title>Registo - KOOBLI</title>
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="../css/style.css">
 </head>
 <body>
 

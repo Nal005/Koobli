@@ -1,6 +1,6 @@
 <?php
 session_start();
-include "includes/config.php";
+include __DIR__ . "/../includes/config.php";
 
 $erro = "";
 
@@ -23,7 +23,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if (password_verify($password, $utilizador['password'])) {
                 $_SESSION['user_id'] = $utilizador['id'];
                 $_SESSION['username'] = $utilizador['username'];
-                header("Location: index.php");
+                header("Location: ../index.php");
                 exit;
             } else {
                 $erro = "Senha incorreta.";
@@ -44,7 +44,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <head>
     <meta charset="UTF-8">
     <title>Login - KOOBLI</title>
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="../css/style.css">
 </head>
 <body>
 

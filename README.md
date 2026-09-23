@@ -36,23 +36,24 @@ Koobli é uma plataforma web para gerir leituras pessoais, inspirada no Skoob. C
 ```
 .
 ├── index.php                 # Página inicial: pesquisa e carrossel
-├── login.php / registo.php   # Autenticação
-├── logout.php
-├── biblioteca.php            # Estantes do utilizador
-├── favoritos.php             # Lista de favoritos
-├── livro.php                 # Página de detalhe do livro
-├── ver_livro.php             # Guarda o livro vindo da API e redireciona para livro.php
-├── adicionar_biblioteca.php  # Ações (POST)
-├── atualizar_estado.php
-├── favoritar.php
-├── avaliar.php
-├── comentar.php
+├── paginas/                  # Páginas que mostram HTML
+│   ├── login.php / registo.php / logout.php
+│   ├── biblioteca.php        # Estantes do utilizador
+│   ├── favoritos.php         # Lista de favoritos
+│   ├── livro.php             # Página de detalhe do livro
+│   └── ver_livro.php         # Guarda o livro vindo da API e redireciona para livro.php
+├── acoes/                    # Recebem formulários (POST) e redirecionam
+│   ├── adicionar_biblioteca.php
+│   ├── atualizar_estado.php
+│   ├── favoritar.php
+│   ├── avaliar.php
+│   └── comentar.php
 ├── includes/
 │   ├── config.php            # Ligação à base de dados
 │   ├── apikey.php            # Chave da Google Books API (não versionado)
 │   ├── livros.php            # Funções auxiliares de livros
 │   ├── favoritos_helper.php
-│   ├── header.php
+│   ├── header.php            # Usa $raiz = "../" nas páginas dentro de subpastas
 │   └── footer.php
 ├── css/style.css
 ├── imgs/

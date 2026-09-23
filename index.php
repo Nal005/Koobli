@@ -7,7 +7,7 @@ include "includes/favoritos_helper.php";
 $favoritosApiIds = obterApiIdsFavoritos($conn, $_SESSION['user_id']);
 
 if (!isset($_SESSION['user_id'])) {
-    header("Location: login.php");
+    header("Location: paginas/login.php");
     exit;
 }
 
@@ -74,15 +74,15 @@ $destaque = $bestsellers[0] ?? null;
     <aside class="sidebar">
         <nav class="sidebar-nav">
             <a href="index.php" title="Home" class="active"><i class="fi fi-rs-home"></i></a>
-            <a href="biblioteca.php" title="Biblioteca"><i class="fi fi-rs-books"></i></a>
-            <a href="favoritos.php" title="Favoritos"><i class="fi fi-rs-bookmark"></i></a>
-            <a href="notificacoes.php" title="Notificações"><i class="fi fi-rs-bell"></i></a>
-            <a href="mensagens.php" title="Mensagens"><i class="fi fi-rs-comment"></i></a>
+            <a href="paginas/biblioteca.php" title="Biblioteca"><i class="fi fi-rs-books"></i></a>
+            <a href="paginas/favoritos.php" title="Favoritos"><i class="fi fi-rs-bookmark"></i></a>
+            <a href="paginas/notificacoes.php" title="Notificações"><i class="fi fi-rs-bell"></i></a>
+            <a href="paginas/mensagens.php" title="Mensagens"><i class="fi fi-rs-comment"></i></a>
         </nav>
 
         <div class="sidebar-bottom">
-            <a href="perfil.php" title="Perfil" class="sidebar-perfil"><i class="fi fi-rs-user"></i></a>
-            <a href="logout.php" title="Sair" class="sidebar-logout"><i class="fi fi-rs-exit"></i></a>
+            <a href="paginas/perfil.php" title="Perfil" class="sidebar-perfil"><i class="fi fi-rs-user"></i></a>
+            <a href="paginas/logout.php" title="Sair" class="sidebar-logout"><i class="fi fi-rs-exit"></i></a>
         </div>
     </aside>
 
@@ -112,7 +112,7 @@ $destaque = $bestsellers[0] ?? null;
             <div class="hero-destaque">
 
                 <?php
-                $linkVerLivro = "ver_livro.php?" . http_build_query([
+                $linkVerLivro = "paginas/ver_livro.php?" . http_build_query([
                     'api_id' => $destaque['id'] ?? '',
                     'titulo' => $titulo,
                     'autor' => $autor,
@@ -135,7 +135,7 @@ $destaque = $bestsellers[0] ?? null;
                     <?php
                     $ehFavorito = in_array($destaque['id'] ?? '', $favoritosApiIds);
                     ?>
-                    <form method="POST" action="favoritar.php" class="form-favorito">
+                    <form method="POST" action="acoes/favoritar.php" class="form-favorito">
                         <input type="hidden" name="api_id" value="<?php echo htmlspecialchars($destaque['id'] ?? ''); ?>">
                         <input type="hidden" name="titulo" value="<?php echo htmlspecialchars($titulo); ?>">
                         <input type="hidden" name="autor" value="<?php echo htmlspecialchars($autor); ?>">
@@ -144,7 +144,7 @@ $destaque = $bestsellers[0] ?? null;
                         <button type="submit" class="btn-coracao"><?php echo $ehFavorito ? '❤️' : '🤍'; ?></button>
                     </form>
 
-                    <form method="POST" action="adicionar_biblioteca.php">
+                    <form method="POST" action="acoes/adicionar_biblioteca.php">
                         <input type="hidden" name="api_id" value="<?php echo htmlspecialchars($destaque['id'] ?? ''); ?>">
                         <input type="hidden" name="titulo" value="<?php echo htmlspecialchars($titulo); ?>">
                         <input type="hidden" name="autor" value="<?php echo htmlspecialchars($autor); ?>">
@@ -189,7 +189,7 @@ $destaque = $bestsellers[0] ?? null;
                         $autor = $info['authors'][0] ?? "Autor";
                         $imagem = $info['imageLinks']['thumbnail'] ?? "https://via.placeholder.com/150x220";
 
-                        $linkVerLivro = "ver_livro.php?" . http_build_query([
+                        $linkVerLivro = "paginas/ver_livro.php?" . http_build_query([
                             'api_id' => $livro['id'] ?? '',
                             'titulo' => $titulo,
                             'autor' => $autor,
@@ -209,7 +209,7 @@ $destaque = $bestsellers[0] ?? null;
 
 
                         <?php $ehFavorito = in_array($livro['id'] ?? '', $favoritosApiIds); ?>
-                        <form method="POST" action="favoritar.php" class="form-favorito">
+                        <form method="POST" action="acoes/favoritar.php" class="form-favorito">
                             <input type="hidden" name="api_id" value="<?php echo htmlspecialchars($livro['id'] ?? ''); ?>">
                             <input type="hidden" name="titulo" value="<?php echo htmlspecialchars($titulo); ?>">
                             <input type="hidden" name="autor" value="<?php echo htmlspecialchars($autor); ?>">
@@ -218,7 +218,7 @@ $destaque = $bestsellers[0] ?? null;
                             <button type="submit" class="btn-coracao"><?php echo $ehFavorito ? '❤️' : '🤍'; ?></button>
                         </form>
 
-                        <form method="POST" action="adicionar_biblioteca.php">
+                        <form method="POST" action="acoes/adicionar_biblioteca.php">
                             <input type="hidden" name="api_id" value="<?php echo htmlspecialchars($livro['id'] ?? ''); ?>">
                             <input type="hidden" name="titulo" value="<?php echo htmlspecialchars($titulo); ?>">
                             <input type="hidden" name="autor" value="<?php echo htmlspecialchars($autor); ?>">
@@ -247,7 +247,7 @@ $destaque = $bestsellers[0] ?? null;
                     $autor = $info['authors'][0] ?? "Autor";
                     $imagem = $info['imageLinks']['thumbnail'] ?? "https://via.placeholder.com/150x220";
 
-                    $linkVerLivro = "ver_livro.php?" . http_build_query([
+                    $linkVerLivro = "paginas/ver_livro.php?" . http_build_query([
                         'api_id' => $livro['id'] ?? '',
                         'titulo' => $titulo,
                         'autor' => $autor,
@@ -265,7 +265,7 @@ $destaque = $bestsellers[0] ?? null;
                     <p><?php echo htmlspecialchars($autor); ?></p>
                      
                     <?php $ehFavorito = in_array($livro['id'] ?? '', $favoritosApiIds); ?>
-                    <form method="POST" action="favoritar.php" class="form-favorito">
+                    <form method="POST" action="acoes/favoritar.php" class="form-favorito">
                         <input type="hidden" name="api_id" value="<?php echo htmlspecialchars($livro['id'] ?? ''); ?>">
                         <input type="hidden" name="titulo" value="<?php echo htmlspecialchars($titulo); ?>">
                         <input type="hidden" name="autor" value="<?php echo htmlspecialchars($autor); ?>">
@@ -274,7 +274,7 @@ $destaque = $bestsellers[0] ?? null;
                         <button type="submit" class="btn-coracao"><?php echo $ehFavorito ? '❤️' : '🤍'; ?></button>
                     </form>
 
-                    <form method="POST" action="adicionar_biblioteca.php">
+                    <form method="POST" action="acoes/adicionar_biblioteca.php">
                         <input type="hidden" name="api_id" value="<?php echo htmlspecialchars($livro['id'] ?? ''); ?>">
                         <input type="hidden" name="titulo" value="<?php echo htmlspecialchars($titulo); ?>">
                         <input type="hidden" name="autor" value="<?php echo htmlspecialchars($autor); ?>">

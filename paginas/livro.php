@@ -1,14 +1,15 @@
 <?php
 session_start();
-include "includes/header.php";
+$raiz = "../";
+include __DIR__ . "/../includes/header.php";
 
 if (!isset($_SESSION['user_id'])) {
     header("Location: login.php");
     exit;
 }
 
-include "includes/config.php";
-include "includes/favoritos_helper.php";
+include __DIR__ . "/../includes/config.php";
+include __DIR__ . "/../includes/favoritos_helper.php";
 
 $livroId = $_GET['id'] ?? 0;
 
@@ -18,7 +19,7 @@ $stmt->execute();
 $resultado = $stmt->get_result();
 
 if ($resultado->num_rows === 0) {
-    header("Location: index.php");
+    header("Location: ../index.php");
     exit;
 }
 
@@ -44,11 +45,11 @@ $avaliacoes = $stmtAval->get_result();
 <div class="app-layout">
     <div class="sidebar-wrapper">
         <div class="brand-bar">
-            <img src="imgs/noback.png" alt="Koobli" class="logo-icon">
+            <img src="../imgs/noback.png" alt="Koobli" class="logo-icon">
         </div>  
         <aside class="sidebar">
             <nav class="sidebar-nav">
-                <a href="index.php" title="Home" class="active"><i class="fi fi-rs-home"></i></a>
+                <a href="../index.php" title="Home" class="active"><i class="fi fi-rs-home"></i></a>
                 <a href="biblioteca.php" title="Biblioteca"><i class="fi fi-rs-books"></i></a>
                 <a href="favoritos.php" title="Favoritos"><i class="fi fi-rs-bookmark"></i></a>
                 <a href="notificacoes.php" title="Notificações"><i class="fi fi-rs-bell"></i></a>
@@ -71,7 +72,7 @@ $avaliacoes = $stmtAval->get_result();
                 <h2><?php echo htmlspecialchars($livro['titulo']); ?></h2>
                 <p class="hero-autor"><?php echo htmlspecialchars($livro['autor_principal']); ?></p>
 
-                <form method="POST" action="favoritar.php" class="form-favorito">
+                <form method="POST" action="../acoes/favoritar.php" class="form-favorito">
                     <input type="hidden" name="api_id" value="<?php echo htmlspecialchars($livro['api_id']); ?>">
                     <input type="hidden" name="titulo" value="<?php echo htmlspecialchars($livro['titulo']); ?>">
                     <input type="hidden" name="autor" value="<?php echo htmlspecialchars($livro['autor_principal']); ?>">
@@ -80,7 +81,7 @@ $avaliacoes = $stmtAval->get_result();
                     <button type="submit" class="btn-coracao"><?php echo $ehFavorito ? '❤️' : '🤍'; ?></button>
                 </form>
 
-                <form method="POST" action="adicionar_biblioteca.php">
+                <form method="POST" action="../acoes/adicionar_biblioteca.php">
                     <input type="hidden" name="api_id" value="<?php echo htmlspecialchars($livro['api_id']); ?>">
                     <input type="hidden" name="titulo" value="<?php echo htmlspecialchars($livro['titulo']); ?>">
                     <input type="hidden" name="autor" value="<?php echo htmlspecialchars($livro['autor_principal']); ?>">
@@ -95,7 +96,7 @@ $avaliacoes = $stmtAval->get_result();
         <section class="avaliacoes-section">
             <div class="form-avaliar">
                 <h3>Deixe sua avaliação</h3>
-                <form method="POST" action="avaliar.php">
+                <form method="POST" action="../acoes/avaliar.php">
                     <input type="hidden" name="livro_id" value="<?php echo $livro['id']; ?>">
 
                     <div class="estrelas-input">
@@ -137,7 +138,7 @@ $avaliacoes = $stmtAval->get_result();
 
             <h3>Comentários</h3>
 
-            <form method="POST" action="comentar.php" class="form-comentar">
+            <form method="POST" action="../acoes/comentar.php" class="form-comentar">
                 <input type="hidden" name="livro_id" value="<?php echo $livro['id']; ?>">
                 <textarea name="comentario" placeholder="Escreve um comentário..." required></textarea>
                 <button type="submit" class="btn-adicionar">Comentar</button>
@@ -173,4 +174,4 @@ $avaliacoes = $stmtAval->get_result();
 
 </div>
 
-<?php include "includes/footer.php"; ?>
+<?php include __DIR__ . "/../includes/footer.php"; ?>
