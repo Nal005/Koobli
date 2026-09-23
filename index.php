@@ -30,7 +30,7 @@ if ($pesquisa) {
 
 // Carrossel
 $titulosBestsellers = [
-    "It Ends with Us|Colleen Hoover",
+    "1984|George Orwell",
     "Fourth Wing|Rebecca Yarros",
     "The Silent Patient|Alex Michaelides",
     "Six of Crows|Leigh Bardugo",
