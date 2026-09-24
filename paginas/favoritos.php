@@ -13,18 +13,17 @@ include __DIR__ . "/../includes/config.php";
 $userId = $_SESSION['user_id'];
 
 $stmt = $conn->prepare("
-    SELECT 
-        b.id AS biblioteca_id,
-        b.estado,
+    SELECT
+        f.id AS favorito_id,
         l.id AS livro_id,
         l.api_id,
         l.titulo,
         l.autor_principal,
         l.capa
-    FROM biblioteca b
-    JOIN livros l ON b.livro_id = l.id
-    WHERE b.utilizador_id = ?
-    ORDER BY b.data_adicao DESC
+    FROM favoritos f
+    JOIN livros l ON f.livro_id = l.id
+    WHERE f.utilizador_id = ?
+    ORDER BY f.id DESC
 ");
 $stmt->bind_param("i", $userId);
 $stmt->execute();
