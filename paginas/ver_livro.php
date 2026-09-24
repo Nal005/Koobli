@@ -1,12 +1,8 @@
 <?php
-session_start();
+$raiz = "../";
+include __DIR__ . "/../includes/auth.php";
 include __DIR__ . "/../includes/config.php";
 include __DIR__ . "/../includes/livros.php";
-
-if (!isset($_SESSION['user_id'])) {
-    header("Location: login.php");
-    exit;
-}
 
 $apiId = $_GET['api_id'] ?? '';
 $titulo = $_GET['titulo'] ?? '';
