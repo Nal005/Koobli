@@ -1,7 +1,6 @@
 <?php
 $raiz = "../";
 include __DIR__ . "/../includes/auth.php";
-include __DIR__ . "/../includes/header.php";
 
 include __DIR__ . "/../includes/config.php";
 include __DIR__ . "/../includes/favoritos_helper.php";
@@ -17,6 +16,8 @@ if ($resultado->num_rows === 0) {
     header("Location: ../index.php");
     exit;
 }
+
+include __DIR__ . "/../includes/header.php";
 
 $livro = $resultado->fetch_assoc();
 
