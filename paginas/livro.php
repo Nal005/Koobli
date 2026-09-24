@@ -1,12 +1,6 @@
 <?php
-session_start();
 $raiz = "../";
-include __DIR__ . "/../includes/header.php";
-
-if (!isset($_SESSION['user_id'])) {
-    header("Location: login.php");
-    exit;
-}
+include __DIR__ . "/../includes/auth.php";
 
 include __DIR__ . "/../includes/config.php";
 include __DIR__ . "/../includes/favoritos_helper.php";
@@ -22,6 +16,8 @@ if ($resultado->num_rows === 0) {
     header("Location: ../index.php");
     exit;
 }
+
+include __DIR__ . "/../includes/header.php";
 
 $livro = $resultado->fetch_assoc();
 

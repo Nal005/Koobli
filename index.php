@@ -1,15 +1,10 @@
 <?php
-session_start();
+include "includes/auth.php";
 include "includes/header.php";
 include "includes/config.php";
 include "includes/favoritos_helper.php";
 
 $favoritosApiIds = obterApiIdsFavoritos($conn, $_SESSION['user_id']);
-
-if (!isset($_SESSION['user_id'])) {
-    header("Location: paginas/login.php");
-    exit;
-}
 
 include "includes/apikey.php";
 $apiKey = GOOGLE_BOOKS_API_KEY;
