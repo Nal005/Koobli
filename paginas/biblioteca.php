@@ -39,28 +39,7 @@ $rotulos = [
 
 <div class="app-layout">
 
-    <div class="sidebar-wrapper">
-
-    <div class="brand-bar">
-        <img src="../imgs/noback.png" alt="Koobli" class="logo-icon">
-    </div>
-
-    <aside class="sidebar">
-        <nav class="sidebar-nav">
-            <a href="../index.php" title="Home" class="active"><i class="fi fi-rs-home"></i></a>
-            <a href="biblioteca.php" title="Biblioteca"><i class="fi fi-rs-books"></i></a>
-            <a href="favoritos.php" title="Favoritos"><i class="fi fi-rs-bookmark"></i></a>
-            <a href="notificacoes.php" title="Notificações"><i class="fi fi-rs-bell"></i></a>
-            <a href="mensagens.php" title="Mensagens"><i class="fi fi-rs-comment"></i></a>
-        </nav>
-
-        <div class="sidebar-bottom">
-            <a href="perfil.php" title="Perfil" class="sidebar-perfil"><i class="fi fi-rs-user"></i></a>
-            <a href="logout.php" title="Sair" class="sidebar-logout"><i class="fi fi-rs-exit"></i></a>
-        </div>
-    </aside>
-
-</div>
+    <?php include __DIR__ . "/../includes/sidebar.php"; ?>
 
     <main class="dashboard-content">
 
