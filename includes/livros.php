@@ -20,3 +20,10 @@ function obterOuCriarLivro($conn, $apiId, $titulo, $autor, $isbn, $capa) {
 
     return $stmt->insert_id;
 }
+
+function urlCapa($capa, $raiz = "") {
+    if (empty($capa) || str_contains($capa, "via.placeholder.com")) {
+        return $raiz . "imgs/sem-capa.png";
+    }
+    return $capa;
+}
