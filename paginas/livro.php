@@ -3,6 +3,7 @@ $raiz = "../";
 include __DIR__ . "/../includes/auth.php";
 
 include __DIR__ . "/../includes/config.php";
+include __DIR__ . "/../includes/livros.php";
 include __DIR__ . "/../includes/favoritos_helper.php";
 
 $livroId = $_GET['id'] ?? 0;
@@ -62,7 +63,7 @@ $avaliacoes = $stmtAval->get_result();
 
         <div class="livro-detalhe">
 
-            <img src="<?php echo htmlspecialchars($livro['capa'] ?: 'https://via.placeholder.com/200x300'); ?>" alt="<?php echo htmlspecialchars($livro['titulo']); ?>">
+            <img src="<?php echo htmlspecialchars(urlCapa($livro['capa'], $raiz)); ?>" alt="<?php echo htmlspecialchars($livro['titulo']); ?>">
 
             <div class="livro-detalhe-info">
                 <h2><?php echo htmlspecialchars($livro['titulo']); ?></h2>

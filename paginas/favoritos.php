@@ -4,6 +4,7 @@ include __DIR__ . "/../includes/auth.php";
 include __DIR__ . "/../includes/header.php";
 
 include __DIR__ . "/../includes/config.php";
+include __DIR__ . "/../includes/livros.php";
 
 $userId = $_SESSION['user_id'];
 
@@ -66,7 +67,7 @@ while ($linha = $resultado->fetch_assoc()) {
                 <?php foreach ($favoritos as $livro): ?>
                 <div class="card">
                     <a href="livro.php?id=<?php echo $livro['livro_id']; ?>">
-                        <img src="<?php echo htmlspecialchars($livro['capa'] ?: 'https://via.placeholder.com/150x220'); ?>" alt="<?php echo htmlspecialchars($livro['titulo']); ?>">
+                        <img src="<?php echo htmlspecialchars(urlCapa($livro['capa'], $raiz)); ?>" alt="<?php echo htmlspecialchars($livro['titulo']); ?>">
                     </a>
                     <a href="livro.php?id=<?php echo $livro['livro_id']; ?>" class="link-titulo">
                         <h3><?php echo htmlspecialchars($livro['titulo']); ?></h3>
