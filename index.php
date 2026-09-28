@@ -2,6 +2,7 @@
 include "includes/auth.php";
 include "includes/header.php";
 include "includes/config.php";
+include "includes/livros.php";
 include "includes/favoritos_helper.php";
 
 $favoritosApiIds = obterApiIdsFavoritos($conn, $_SESSION['user_id']);
@@ -100,7 +101,7 @@ $destaque = $bestsellers[0] ?? null;
                 $info = $destaque['volumeInfo'];
                 $titulo = $info['title'] ?? "Sem título";
                 $autor = $info['authors'][0] ?? "Autor desconhecido";
-                $imagem = $info['imageLinks']['thumbnail'] ?? "https://via.placeholder.com/150x220";
+                $imagem = $info['imageLinks']['thumbnail'] ?? "";
                 $descricao = $info['description'] ?? "Sem descrição disponível.";
                 $descricaoResumida = mb_strlen($descricao) > 150 ? mb_substr($descricao, 0, 150) . "..." : $descricao;
             ?>
@@ -117,7 +118,7 @@ $destaque = $bestsellers[0] ?? null;
                 ?>
 
                 <a href="<?php echo $linkVerLivro; ?>">
-                    <img src="<?php echo $imagem; ?>" alt="<?php echo htmlspecialchars($titulo); ?>">
+                    <img src="<?php echo htmlspecialchars(urlCapa($imagem)); ?>" alt="<?php echo htmlspecialchars($titulo); ?>">
                 </a>
                 <div class="hero-info">
                     <a href="<?php echo $linkVerLivro; ?>" class="link-titulo">
@@ -182,7 +183,7 @@ $destaque = $bestsellers[0] ?? null;
                         $info = $livro['volumeInfo'];
                         $titulo = $info['title'] ?? "Sem título";
                         $autor = $info['authors'][0] ?? "Autor";
-                        $imagem = $info['imageLinks']['thumbnail'] ?? "https://via.placeholder.com/150x220";
+                        $imagem = $info['imageLinks']['thumbnail'] ?? "";
 
                         $linkVerLivro = "paginas/ver_livro.php?" . http_build_query([
                             'api_id' => $livro['id'] ?? '',
@@ -195,7 +196,7 @@ $destaque = $bestsellers[0] ?? null;
 
                     <div class="card-carrossel">
                         <a href="<?php echo $linkVerLivro; ?>">
-                            <img src="<?php echo $imagem; ?>" alt="<?php echo htmlspecialchars($titulo); ?>">
+                            <img src="<?php echo htmlspecialchars(urlCapa($imagem)); ?>" alt="<?php echo htmlspecialchars($titulo); ?>">
                         </a>
                         <a href="<?php echo $linkVerLivro; ?>" class="link-titulo">
                             <h4><?php echo htmlspecialchars($titulo); ?></h4>
@@ -240,7 +241,7 @@ $destaque = $bestsellers[0] ?? null;
                     $info = $livro['volumeInfo'];
                     $titulo = $info['title'] ?? "Sem título";
                     $autor = $info['authors'][0] ?? "Autor";
-                    $imagem = $info['imageLinks']['thumbnail'] ?? "https://via.placeholder.com/150x220";
+                    $imagem = $info['imageLinks']['thumbnail'] ?? "";
 
                     $linkVerLivro = "paginas/ver_livro.php?" . http_build_query([
                         'api_id' => $livro['id'] ?? '',
@@ -252,7 +253,7 @@ $destaque = $bestsellers[0] ?? null;
                 ?>
                 <div class="card">
                     <a href="<?php echo $linkVerLivro; ?>">
-                        <img src="<?php echo $imagem; ?>" alt="<?php echo htmlspecialchars($titulo); ?>">
+                        <img src="<?php echo htmlspecialchars(urlCapa($imagem)); ?>" alt="<?php echo htmlspecialchars($titulo); ?>">
                     </a>
                     <a href="<?php echo $linkVerLivro; ?>" class="link-titulo">
                         <h3><?php echo htmlspecialchars($titulo); ?></h3>
