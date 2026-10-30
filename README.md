@@ -110,6 +110,14 @@ A forma mais simples de ter tudo isto é instalar o [XAMPP](https://www.apachefr
 
 5. **Abrir no browser:** `http://localhost/Koobli/`, cria uma conta e começa a usar.
 
+### Conta de teste
+
+O `bookhub_db.sql` já inclui uma conta para testes:
+
+| Username | Password   |
+|----------|------------|
+| `admin`  | `admin123` |
+
 ## Autor
 
 Desenvolvido por [Nal005](https://github.com/Nal005) como Projeto Final.

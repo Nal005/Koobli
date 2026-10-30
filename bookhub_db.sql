@@ -152,7 +152,7 @@ CREATE TABLE `utilizadores` (
 --
 
 INSERT INTO `utilizadores` (`id`, `nome`, `username`, `email`, `password`, `foto_perfil`, `biografia`, `data_registo`) VALUES
-(1, 'Administrador', 'admin', 'admin@bookhub.pt', 'admin123', NULL, NULL, '2026-07-16 10:35:07');
+(1, 'Administrador', 'admin', 'admin@bookhub.pt', '$2y$10$5FTMGJHfrFKkl.tD7y1yrejwKsyPpgTEhC/ytlLk.33x18IfvzyGq', NULL, NULL, '2026-07-16 10:35:07');
 
 --
 -- Índices para tabelas despejadas
