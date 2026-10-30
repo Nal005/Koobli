@@ -134,11 +134,11 @@ $destaque = $bestsellers[0] ?? null;
                 $linkVerLivro = "paginas/ver_livro.php?api_id=" . urlencode($destaque['id'] ?? '');
                 ?>
 
-                <a href="<?php echo $linkVerLivro; ?>">
+                <a href="<?php echo htmlspecialchars($linkVerLivro); ?>">
                     <img src="<?php echo htmlspecialchars(urlCapa($imagem)); ?>" alt="<?php echo htmlspecialchars($titulo); ?>">
                 </a>
                 <div class="hero-info">
-                    <a href="<?php echo $linkVerLivro; ?>" class="link-titulo">
+                    <a href="<?php echo htmlspecialchars($linkVerLivro); ?>" class="link-titulo">
                         <h2><?php echo htmlspecialchars($titulo); ?></h2>
                     </a>
                     <p class="hero-autor"><?php echo htmlspecialchars($autor); ?></p>
@@ -200,10 +200,10 @@ $destaque = $bestsellers[0] ?? null;
                     ?>
 
                     <div class="card-carrossel">
-                        <a href="<?php echo $linkVerLivro; ?>">
+                        <a href="<?php echo htmlspecialchars($linkVerLivro); ?>">
                             <img src="<?php echo htmlspecialchars(urlCapa($imagem)); ?>" alt="<?php echo htmlspecialchars($titulo); ?>">
                         </a>
-                        <a href="<?php echo $linkVerLivro; ?>" class="link-titulo">
+                        <a href="<?php echo htmlspecialchars($linkVerLivro); ?>" class="link-titulo">
                             <h4><?php echo htmlspecialchars($titulo); ?></h4>
                         </a>
                         <p><?php echo htmlspecialchars($autor); ?></p>
@@ -245,10 +245,10 @@ $destaque = $bestsellers[0] ?? null;
                     $linkVerLivro = "paginas/ver_livro.php?api_id=" . urlencode($livro['id'] ?? '');
                 ?>
                 <div class="card">
-                    <a href="<?php echo $linkVerLivro; ?>">
+                    <a href="<?php echo htmlspecialchars($linkVerLivro); ?>">
                         <img src="<?php echo htmlspecialchars(urlCapa($imagem)); ?>" alt="<?php echo htmlspecialchars($titulo); ?>">
                     </a>
-                    <a href="<?php echo $linkVerLivro; ?>" class="link-titulo">
+                    <a href="<?php echo htmlspecialchars($linkVerLivro); ?>" class="link-titulo">
                         <h3><?php echo htmlspecialchars($titulo); ?></h3>
                     </a>
                     <p><?php echo htmlspecialchars($autor); ?></p>
