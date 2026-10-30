@@ -24,7 +24,11 @@ if ($pesquisa) {
     }
 }
 
-// Carrossel
+// Carrossel: o resultado fica em cache durante 24 h para não chamar a API em cada visita
+$ficheiroCache = __DIR__ . "/cache/carrossel.json";
+$cacheExiste = file_exists($ficheiroCache);
+$cacheValida = $cacheExiste && time() - filemtime($ficheiroCache) < 24 * 60 * 60;
+
 $titulosBestsellers = [
     "1984|George Orwell",
     "Fourth Wing|Rebecca Yarros",
@@ -39,21 +43,39 @@ $titulosBestsellers = [
 ];
 
 $bestsellers = [];
+$usarCache = $cacheValida;
 
-foreach ($titulosBestsellers as $entrada) {
-    list($tituloBusca, $autorBusca) = explode("|", $entrada);
+if (!$cacheValida) {
+    foreach ($titulosBestsellers as $entrada) {
+        list($tituloBusca, $autorBusca) = explode("|", $entrada);
 
-    $query = 'intitle:"' . $tituloBusca . '"+inauthor:"' . $autorBusca . '"';
-    $urlBusca = "https://www.googleapis.com/books/v1/volumes?q=" . urlencode($query) . "&maxResults=1&key=" . $apiKey;
+        $query = 'intitle:"' . $tituloBusca . '"+inauthor:"' . $autorBusca . '"';
+        $urlBusca = "https://www.googleapis.com/books/v1/volumes?q=" . urlencode($query) . "&maxResults=1&key=" . $apiKey;
 
-    $resposta = @file_get_contents($urlBusca);
+        $resposta = @file_get_contents($urlBusca);
 
-    if ($resposta) {
-        $dados = json_decode($resposta, true);
-        if (!empty($dados['items'][0])) {
-            $bestsellers[] = $dados['items'][0];
+        if ($resposta) {
+            $dados = json_decode($resposta, true);
+            if (!empty($dados['items'][0])) {
+                $bestsellers[] = $dados['items'][0];
+            }
         }
     }
+
+    if (count($bestsellers) < count($titulosBestsellers) && $cacheExiste) {
+        // A API falhou (no todo ou em parte): usa a cache antiga e só volta a tentar daqui a 24 h
+        touch($ficheiroCache);
+        $usarCache = true;
+    } elseif ($bestsellers) {
+        if (!is_dir(__DIR__ . "/cache")) {
+            mkdir(__DIR__ . "/cache");
+        }
+        file_put_contents($ficheiroCache, json_encode($bestsellers));
+    }
+}
+
+if ($usarCache) {
+    $bestsellers = json_decode(file_get_contents($ficheiroCache), true) ?? [];
 }
 
 $destaque = $bestsellers[0] ?? null;
