@@ -1,5 +1,12 @@
 <?php
 session_start();
+
+// Quem já tem sessão iniciada não precisa de fazer login
+if (isset($_SESSION['user_id'])) {
+    header("Location: ../index.php");
+    exit;
+}
+
 include __DIR__ . "/../includes/config.php";
 include __DIR__ . "/../includes/csrf.php";
 
@@ -17,23 +24,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt = $conn->prepare("SELECT id, username, password FROM utilizadores WHERE username = ?");
         $stmt->bind_param("s", $username);
         $stmt->execute();
-        $resultado = $stmt->get_result();
+        $utilizador = $stmt->get_result()->fetch_assoc();
 
-        if ($resultado->num_rows === 1) {
-
-            $utilizador = $resultado->fetch_assoc();
-
-            if (password_verify($password, $utilizador['password'])) {
-                $_SESSION['user_id'] = $utilizador['id'];
-                $_SESSION['username'] = $utilizador['username'];
-                header("Location: ../index.php");
-                exit;
-            } else {
-                $erro = "Senha incorreta.";
-            }
-
+        // A mesma mensagem nos dois casos, para não revelar se o username existe
+        if ($utilizador && password_verify($password, $utilizador['password'])) {
+            // Novo id de sessão depois do login (evita session fixation)
+            session_regenerate_id(true);
+            unset($_SESSION['csrf_token']); // a nova sessão recebe um token CSRF novo
+            $_SESSION['user_id'] = $utilizador['id'];
+            $_SESSION['username'] = $utilizador['username'];
+            header("Location: ../index.php");
+            exit;
         } else {
-            $erro = "Utilizador não encontrado.";
+            $erro = "Username ou senha incorretos.";
         }
 
     } else {

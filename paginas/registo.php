@@ -1,5 +1,12 @@
 <?php
 session_start();
+
+// Quem já tem sessão iniciada não precisa de criar conta
+if (isset($_SESSION['user_id'])) {
+    header("Location: ../index.php");
+    exit;
+}
+
 include __DIR__ . "/../includes/config.php";
 include __DIR__ . "/../includes/csrf.php";
 
@@ -14,7 +21,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $email = trim($_POST['email']);
     $password = $_POST['password'];
 
-    if ($nome && $username && $email && $password) {
+    if (!$nome || !$username || !$email || !$password) {
+        $erro = "Preenche todos os campos.";
+    } elseif (mb_strlen($password) < 8) {
+        $erro = "A senha deve ter pelo menos 8 caracteres.";
+    } else {
 
         $check = $conn->prepare("SELECT id FROM utilizadores WHERE username = ? OR email = ?");
         $check->bind_param("ss", $username, $email);
@@ -30,6 +41,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $stmt->bind_param("ssss", $nome, $username, $email, $hash);
 
             if ($stmt->execute()) {
+                // Novo id de sessão depois do registo (evita session fixation)
+                session_regenerate_id(true);
+                unset($_SESSION['csrf_token']); // a nova sessão recebe um token CSRF novo
                 $_SESSION['user_id'] = $stmt->insert_id;
                 $_SESSION['username'] = $username;
                 header("Location: ../index.php");
@@ -39,8 +53,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
         }
 
-    } else {
-        $erro = "Preenche todos os campos.";
     }
 }
 ?>
@@ -67,7 +79,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <input type="text" name="nome" placeholder="Nome completo" required>
             <input type="text" name="username" placeholder="Username" required>
             <input type="email" name="email" placeholder="Email" required>
-            <input type="password" name="password" placeholder="Senha" required>
+            <input type="password" name="password" placeholder="Senha (mínimo 8 caracteres)" minlength="8" required>
             <button type="submit">Registar</button>
         </form>
 
