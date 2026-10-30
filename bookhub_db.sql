@@ -201,7 +201,8 @@ ALTER TABLE `favoritos`
 -- Índices para tabela `livros`
 --
 ALTER TABLE `livros`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `api_id` (`api_id`);
 
 --
 -- Índices para tabela `livro_categoria`

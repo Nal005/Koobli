@@ -7,14 +7,11 @@ include __DIR__ . "/../includes/livros.php";
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $apiId = $_POST['api_id'] ?? '';
-    $titulo = $_POST['titulo'] ?? '';
-    $autor = $_POST['autor'] ?? '';
-    $isbn = $_POST['isbn'] ?? '';
-    $capa = $_POST['capa'] ?? '';
 
-    if ($apiId && $titulo) {
+    $livroId = obterOuCriarLivro($conn, $apiId);
 
-        $livroId = obterOuCriarLivro($conn, $apiId, $titulo, $autor, $isbn, $capa);
+    if ($livroId) {
+
         $userId = $_SESSION['user_id'];
 
         
