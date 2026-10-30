@@ -4,6 +4,7 @@ include "includes/header.php";
 include "includes/config.php";
 include "includes/livros.php";
 include "includes/favoritos_helper.php";
+include "includes/csrf.php";
 
 $favoritosApiIds = obterApiIdsFavoritos($conn, $_SESSION['user_id']);
 
@@ -148,11 +149,13 @@ $destaque = $bestsellers[0] ?? null;
                     $ehFavorito = in_array($destaque['id'] ?? '', $favoritosApiIds);
                     ?>
                     <form method="POST" action="acoes/favoritar.php" class="form-favorito">
+                        <?php echo campoCsrf(); ?>
                         <input type="hidden" name="api_id" value="<?php echo htmlspecialchars($destaque['id'] ?? ''); ?>">
                         <button type="submit" class="btn-coracao"><?php echo $ehFavorito ? '❤️' : '🤍'; ?></button>
                     </form>
 
                     <form method="POST" action="acoes/adicionar_biblioteca.php">
+                        <?php echo campoCsrf(); ?>
                         <input type="hidden" name="api_id" value="<?php echo htmlspecialchars($destaque['id'] ?? ''); ?>">
                         <button type="submit" class="btn-adicionar">+ Adicionar à biblioteca</button>
                     </form>
@@ -208,11 +211,13 @@ $destaque = $bestsellers[0] ?? null;
 
                         <?php $ehFavorito = in_array($livro['id'] ?? '', $favoritosApiIds); ?>
                         <form method="POST" action="acoes/favoritar.php" class="form-favorito">
+                            <?php echo campoCsrf(); ?>
                             <input type="hidden" name="api_id" value="<?php echo htmlspecialchars($livro['id'] ?? ''); ?>">
                             <button type="submit" class="btn-coracao"><?php echo $ehFavorito ? '❤️' : '🤍'; ?></button>
                         </form>
 
                         <form method="POST" action="acoes/adicionar_biblioteca.php">
+                            <?php echo campoCsrf(); ?>
                             <input type="hidden" name="api_id" value="<?php echo htmlspecialchars($livro['id'] ?? ''); ?>">
                             <button type="submit" class="btn-mini">+ Adicionar</button>
                         </form>
@@ -250,11 +255,13 @@ $destaque = $bestsellers[0] ?? null;
                      
                     <?php $ehFavorito = in_array($livro['id'] ?? '', $favoritosApiIds); ?>
                     <form method="POST" action="acoes/favoritar.php" class="form-favorito">
+                        <?php echo campoCsrf(); ?>
                         <input type="hidden" name="api_id" value="<?php echo htmlspecialchars($livro['id'] ?? ''); ?>">
                         <button type="submit" class="btn-coracao"><?php echo $ehFavorito ? '❤️' : '🤍'; ?></button>
                     </form>
 
                     <form method="POST" action="acoes/adicionar_biblioteca.php">
+                        <?php echo campoCsrf(); ?>
                         <input type="hidden" name="api_id" value="<?php echo htmlspecialchars($livro['id'] ?? ''); ?>">
                         <button type="submit" class="btn-mini">+ Adicionar</button>
                     </form>

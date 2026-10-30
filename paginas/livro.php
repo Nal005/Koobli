@@ -5,6 +5,7 @@ include __DIR__ . "/../includes/auth.php";
 include __DIR__ . "/../includes/config.php";
 include __DIR__ . "/../includes/livros.php";
 include __DIR__ . "/../includes/favoritos_helper.php";
+include __DIR__ . "/../includes/csrf.php";
 
 $livroId = $_GET['id'] ?? 0;
 
@@ -70,11 +71,13 @@ $avaliacoes = $stmtAval->get_result();
                 <p class="hero-autor"><?php echo htmlspecialchars($livro['autor_principal']); ?></p>
 
                 <form method="POST" action="../acoes/favoritar.php" class="form-favorito">
+                    <?php echo campoCsrf(); ?>
                     <input type="hidden" name="api_id" value="<?php echo htmlspecialchars($livro['api_id']); ?>">
                     <button type="submit" class="btn-coracao"><?php echo $ehFavorito ? '❤️' : '🤍'; ?></button>
                 </form>
 
                 <form method="POST" action="../acoes/adicionar_biblioteca.php">
+                    <?php echo campoCsrf(); ?>
                     <input type="hidden" name="api_id" value="<?php echo htmlspecialchars($livro['api_id']); ?>">
                     <button type="submit" class="btn-adicionar">+ Adicionar à biblioteca</button>
                 </form>
@@ -86,6 +89,7 @@ $avaliacoes = $stmtAval->get_result();
             <div class="form-avaliar">
                 <h3>Deixe sua avaliação</h3>
                 <form method="POST" action="../acoes/avaliar.php">
+                    <?php echo campoCsrf(); ?>
                     <input type="hidden" name="livro_id" value="<?php echo $livro['id']; ?>">
 
                     <div class="estrelas-input">
@@ -128,6 +132,7 @@ $avaliacoes = $stmtAval->get_result();
             <h3>Comentários</h3>
 
             <form method="POST" action="../acoes/comentar.php" class="form-comentar">
+                <?php echo campoCsrf(); ?>
                 <input type="hidden" name="livro_id" value="<?php echo $livro['id']; ?>">
                 <textarea name="comentario" placeholder="Escreve um comentário..." required></textarea>
                 <button type="submit" class="btn-adicionar">Comentar</button>

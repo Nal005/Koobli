@@ -5,6 +5,7 @@ include __DIR__ . "/../includes/header.php";
 
 include __DIR__ . "/../includes/config.php";
 include __DIR__ . "/../includes/livros.php";
+include __DIR__ . "/../includes/csrf.php";
 
 $userId = $_SESSION['user_id'];
 
@@ -93,6 +94,7 @@ $rotulos = [
                         <p><?php echo htmlspecialchars($livro['autor_principal']); ?></p>
 
                         <form method="POST" action="../acoes/atualizar_estado.php" class="form-estado">
+                            <?php echo campoCsrf(); ?>
                             <input type="hidden" name="biblioteca_id" value="<?php echo $livro['biblioteca_id']; ?>">
                             <select name="estado" onchange="this.form.submit()">
                                 <?php foreach ($rotulos as $valor => $texto): ?>
