@@ -83,6 +83,12 @@ $rotulos = [
                                 <?php endforeach; ?>
                             </select>
                         </form>
+
+                        <form method="POST" action="../acoes/remover_biblioteca.php" onsubmit="return confirm('Remover este livro da biblioteca?');">
+                            <?php echo campoCsrf(); ?>
+                            <input type="hidden" name="biblioteca_id" value="<?php echo $livro['biblioteca_id']; ?>">
+                            <button type="submit" class="btn-mini">Remover</button>
+                        </form>
                     </div>
                     <?php endforeach; ?>
                 </div>

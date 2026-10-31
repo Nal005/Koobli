@@ -17,17 +17,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         $userId = $_SESSION['user_id'];
 
-        
-        $check = $conn->prepare("SELECT id FROM biblioteca WHERE utilizador_id = ? AND livro_id = ?");
-        $check->bind_param("ii", $userId, $livroId);
-        $check->execute();
-        $existe = $check->get_result();
-
-        if ($existe->num_rows === 0) {
-            $stmt = $conn->prepare("INSERT INTO biblioteca (utilizador_id, livro_id, estado) VALUES (?, ?, 'quero_ler')");
-            $stmt->bind_param("ii", $userId, $livroId);
-            $stmt->execute();
-        }
+        // IGNORE: se o livro já estiver na biblioteca, o UNIQUE (utilizador_id, livro_id)
+        // impede o duplicado e o pedido segue sem erro
+        $stmt = $conn->prepare("INSERT IGNORE INTO biblioteca (utilizador_id, livro_id, estado) VALUES (?, ?, 'quero_ler')");
+        $stmt->bind_param("ii", $userId, $livroId);
+        $stmt->execute();
     }
 }
 

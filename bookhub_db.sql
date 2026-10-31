@@ -171,7 +171,7 @@ ALTER TABLE `avaliacoes`
 --
 ALTER TABLE `biblioteca`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `utilizador_id` (`utilizador_id`),
+  ADD UNIQUE KEY `utilizador_id` (`utilizador_id`,`livro_id`),
   ADD KEY `livro_id` (`livro_id`);
 
 --
