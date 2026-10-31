@@ -7,7 +7,7 @@ include "includes/favoritos_helper.php";
 
 $favoritosApiIds = obterApiIdsFavoritos($conn, $_SESSION['user_id']);
 
-include "includes/apikey.php";
+include_once "includes/apikey.php";
 $apiKey = GOOGLE_BOOKS_API_KEY;
 
 
@@ -109,13 +109,7 @@ $destaque = $bestsellers[0] ?? null;
             <div class="hero-destaque">
 
                 <?php
-                $linkVerLivro = "paginas/ver_livro.php?" . http_build_query([
-                    'api_id' => $destaque['id'] ?? '',
-                    'titulo' => $titulo,
-                    'autor' => $autor,
-                    'isbn' => $info['industryIdentifiers'][0]['identifier'] ?? '',
-                    'capa' => $imagem
-                ]);
+                $linkVerLivro = "paginas/ver_livro.php?api_id=" . urlencode($destaque['id'] ?? '');
                 ?>
 
                 <a href="<?php echo $linkVerLivro; ?>">
@@ -134,19 +128,11 @@ $destaque = $bestsellers[0] ?? null;
                     ?>
                     <form method="POST" action="acoes/favoritar.php" class="form-favorito">
                         <input type="hidden" name="api_id" value="<?php echo htmlspecialchars($destaque['id'] ?? ''); ?>">
-                        <input type="hidden" name="titulo" value="<?php echo htmlspecialchars($titulo); ?>">
-                        <input type="hidden" name="autor" value="<?php echo htmlspecialchars($autor); ?>">
-                        <input type="hidden" name="isbn" value="<?php echo htmlspecialchars($info['industryIdentifiers'][0]['identifier'] ?? ''); ?>">
-                        <input type="hidden" name="capa" value="<?php echo htmlspecialchars($imagem); ?>">
                         <button type="submit" class="btn-coracao"><?php echo $ehFavorito ? '❤️' : '🤍'; ?></button>
                     </form>
 
                     <form method="POST" action="acoes/adicionar_biblioteca.php">
                         <input type="hidden" name="api_id" value="<?php echo htmlspecialchars($destaque['id'] ?? ''); ?>">
-                        <input type="hidden" name="titulo" value="<?php echo htmlspecialchars($titulo); ?>">
-                        <input type="hidden" name="autor" value="<?php echo htmlspecialchars($autor); ?>">
-                        <input type="hidden" name="isbn" value="<?php echo htmlspecialchars($info['industryIdentifiers'][0]['identifier'] ?? ''); ?>">
-                        <input type="hidden" name="capa" value="<?php echo htmlspecialchars($imagem); ?>">
                         <button type="submit" class="btn-adicionar">+ Adicionar à biblioteca</button>
                     </form>
                 </div>
@@ -186,13 +172,7 @@ $destaque = $bestsellers[0] ?? null;
                         $autor = $info['authors'][0] ?? "Autor";
                         $imagem = $info['imageLinks']['thumbnail'] ?? "";
 
-                        $linkVerLivro = "paginas/ver_livro.php?" . http_build_query([
-                            'api_id' => $livro['id'] ?? '',
-                            'titulo' => $titulo,
-                            'autor' => $autor,
-                            'isbn' => $info['industryIdentifiers'][0]['identifier'] ?? '',
-                            'capa' => $imagem
-                        ]);
+                        $linkVerLivro = "paginas/ver_livro.php?api_id=" . urlencode($livro['id'] ?? '');
                     ?>
 
                     <div class="card-carrossel">
@@ -208,19 +188,11 @@ $destaque = $bestsellers[0] ?? null;
                         <?php $ehFavorito = in_array($livro['id'] ?? '', $favoritosApiIds); ?>
                         <form method="POST" action="acoes/favoritar.php" class="form-favorito">
                             <input type="hidden" name="api_id" value="<?php echo htmlspecialchars($livro['id'] ?? ''); ?>">
-                            <input type="hidden" name="titulo" value="<?php echo htmlspecialchars($titulo); ?>">
-                            <input type="hidden" name="autor" value="<?php echo htmlspecialchars($autor); ?>">
-                            <input type="hidden" name="isbn" value="<?php echo htmlspecialchars($info['industryIdentifiers'][0]['identifier'] ?? ''); ?>">
-                            <input type="hidden" name="capa" value="<?php echo htmlspecialchars($imagem); ?>">
                             <button type="submit" class="btn-coracao"><?php echo $ehFavorito ? '❤️' : '🤍'; ?></button>
                         </form>
 
                         <form method="POST" action="acoes/adicionar_biblioteca.php">
                             <input type="hidden" name="api_id" value="<?php echo htmlspecialchars($livro['id'] ?? ''); ?>">
-                            <input type="hidden" name="titulo" value="<?php echo htmlspecialchars($titulo); ?>">
-                            <input type="hidden" name="autor" value="<?php echo htmlspecialchars($autor); ?>">
-                            <input type="hidden" name="isbn" value="<?php echo htmlspecialchars($info['industryIdentifiers'][0]['identifier'] ?? ''); ?>">
-                            <input type="hidden" name="capa" value="<?php echo htmlspecialchars($imagem); ?>">
                             <button type="submit" class="btn-mini">+ Adicionar</button>
                         </form>
                     </div>
@@ -244,13 +216,7 @@ $destaque = $bestsellers[0] ?? null;
                     $autor = $info['authors'][0] ?? "Autor";
                     $imagem = $info['imageLinks']['thumbnail'] ?? "";
 
-                    $linkVerLivro = "paginas/ver_livro.php?" . http_build_query([
-                        'api_id' => $livro['id'] ?? '',
-                        'titulo' => $titulo,
-                        'autor' => $autor,
-                        'isbn' => $info['industryIdentifiers'][0]['identifier'] ?? '',
-                        'capa' => $imagem
-                    ]);
+                    $linkVerLivro = "paginas/ver_livro.php?api_id=" . urlencode($livro['id'] ?? '');
                 ?>
                 <div class="card">
                     <a href="<?php echo $linkVerLivro; ?>">
@@ -264,19 +230,11 @@ $destaque = $bestsellers[0] ?? null;
                     <?php $ehFavorito = in_array($livro['id'] ?? '', $favoritosApiIds); ?>
                     <form method="POST" action="acoes/favoritar.php" class="form-favorito">
                         <input type="hidden" name="api_id" value="<?php echo htmlspecialchars($livro['id'] ?? ''); ?>">
-                        <input type="hidden" name="titulo" value="<?php echo htmlspecialchars($titulo); ?>">
-                        <input type="hidden" name="autor" value="<?php echo htmlspecialchars($autor); ?>">
-                        <input type="hidden" name="isbn" value="<?php echo htmlspecialchars($info['industryIdentifiers'][0]['identifier'] ?? ''); ?>">
-                        <input type="hidden" name="capa" value="<?php echo htmlspecialchars($imagem); ?>">
                         <button type="submit" class="btn-coracao"><?php echo $ehFavorito ? '❤️' : '🤍'; ?></button>
                     </form>
 
                     <form method="POST" action="acoes/adicionar_biblioteca.php">
                         <input type="hidden" name="api_id" value="<?php echo htmlspecialchars($livro['id'] ?? ''); ?>">
-                        <input type="hidden" name="titulo" value="<?php echo htmlspecialchars($titulo); ?>">
-                        <input type="hidden" name="autor" value="<?php echo htmlspecialchars($autor); ?>">
-                        <input type="hidden" name="isbn" value="<?php echo htmlspecialchars($info['industryIdentifiers'][0]['identifier'] ?? ''); ?>">
-                        <input type="hidden" name="capa" value="<?php echo htmlspecialchars($imagem); ?>">
                         <button type="submit" class="btn-mini">+ Adicionar</button>
                     </form>
                 </div>

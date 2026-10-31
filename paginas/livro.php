@@ -53,19 +53,11 @@ $avaliacoes = $stmtAval->get_result();
 
                 <form method="POST" action="../acoes/favoritar.php" class="form-favorito">
                     <input type="hidden" name="api_id" value="<?php echo htmlspecialchars($livro['api_id']); ?>">
-                    <input type="hidden" name="titulo" value="<?php echo htmlspecialchars($livro['titulo']); ?>">
-                    <input type="hidden" name="autor" value="<?php echo htmlspecialchars($livro['autor_principal']); ?>">
-                    <input type="hidden" name="isbn" value="<?php echo htmlspecialchars($livro['isbn']); ?>">
-                    <input type="hidden" name="capa" value="<?php echo htmlspecialchars($livro['capa']); ?>">
                     <button type="submit" class="btn-coracao"><?php echo $ehFavorito ? '❤️' : '🤍'; ?></button>
                 </form>
 
                 <form method="POST" action="../acoes/adicionar_biblioteca.php">
                     <input type="hidden" name="api_id" value="<?php echo htmlspecialchars($livro['api_id']); ?>">
-                    <input type="hidden" name="titulo" value="<?php echo htmlspecialchars($livro['titulo']); ?>">
-                    <input type="hidden" name="autor" value="<?php echo htmlspecialchars($livro['autor_principal']); ?>">
-                    <input type="hidden" name="isbn" value="<?php echo htmlspecialchars($livro['isbn']); ?>">
-                    <input type="hidden" name="capa" value="<?php echo htmlspecialchars($livro['capa']); ?>">
                     <button type="submit" class="btn-adicionar">+ Adicionar à biblioteca</button>
                 </form>
             </div>
