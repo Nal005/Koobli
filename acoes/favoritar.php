@@ -35,6 +35,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
-$voltar = $_SERVER['HTTP_REFERER'] ?? '../index.php';
+// Volta à página anterior, mas só se for deste site (evita open redirect)
+$voltar = $_SERVER['HTTP_REFERER'] ?? '';
+$site = $_SERVER['HTTP_HOST'] . "/";
+
+if (!str_starts_with($voltar, "http://" . $site) && !str_starts_with($voltar, "https://" . $site)) {
+    $voltar = "../index.php";
+}
+
 header("Location: " . $voltar);
 exit;
