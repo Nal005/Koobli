@@ -2,8 +2,11 @@
 $raiz = "../";
 include __DIR__ . "/../includes/auth.php";
 include __DIR__ . "/../includes/config.php";
+include __DIR__ . "/../includes/csrf.php";
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
+    validarCsrf();
 
     $livroId = $_POST['livro_id'] ?? 0;
     $nota = $_POST['nota'] ?? 0;

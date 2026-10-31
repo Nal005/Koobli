@@ -5,6 +5,7 @@ include __DIR__ . "/../includes/header.php";
 
 include __DIR__ . "/../includes/config.php";
 include __DIR__ . "/../includes/livros.php";
+include __DIR__ . "/../includes/csrf.php";
 
 $userId = $_SESSION['user_id'];
 
@@ -54,6 +55,7 @@ while ($linha = $resultado->fetch_assoc()) {
                     <p><?php echo htmlspecialchars($livro['autor_principal']); ?></p>
 
                     <form method="POST" action="../acoes/favoritar.php" class="form-favorito">
+                        <?php echo campoCsrf(); ?>
                         <input type="hidden" name="api_id" value="<?php echo htmlspecialchars($livro['api_id']); ?>">
                         <button type="submit" class="btn-coracao">❤️</button>
                     </form>

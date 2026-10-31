@@ -1,10 +1,13 @@
 <?php
 session_start();
 include __DIR__ . "/../includes/config.php";
+include __DIR__ . "/../includes/csrf.php";
 
 $erro = "";
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
+    validarCsrf();
 
     $nome = trim($_POST['nome']);
     $username = trim($_POST['username']);
@@ -60,6 +63,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <?php endif; ?>
 
         <form method="POST">
+            <?php echo campoCsrf(); ?>
             <input type="text" name="nome" placeholder="Nome completo" required>
             <input type="text" name="username" placeholder="Username" required>
             <input type="email" name="email" placeholder="Email" required>

@@ -2,9 +2,12 @@
 $raiz = "../";
 include __DIR__ . "/../includes/auth.php";
 include __DIR__ . "/../includes/config.php";
+include __DIR__ . "/../includes/csrf.php";
 include __DIR__ . "/../includes/livros.php";
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
+    validarCsrf();
 
     $apiId = $_POST['api_id'] ?? '';
     $userId = $_SESSION['user_id'];
