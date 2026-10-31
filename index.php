@@ -63,8 +63,10 @@ if (!$cacheValida) {
         }
     }
 
-    if (count($bestsellers) < count($titulosBestsellers) && $cacheExiste) {
-        // A API falhou (no todo ou em parte): usa a cache antiga e só volta a tentar daqui a 24 h
+    $cacheAntiga = $cacheExiste ? json_decode(file_get_contents($ficheiroCache), true) ?? [] : [];
+
+    if (count($bestsellers) < count($titulosBestsellers) && count($bestsellers) < count($cacheAntiga)) {
+        // A API falhou e a cache antiga tem mais livros: usa a cache antiga e só volta a tentar daqui a 24 h
         touch($ficheiroCache);
         $usarCache = true;
     } elseif ($bestsellers) {
