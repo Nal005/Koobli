@@ -20,6 +20,7 @@
     --roxo-texto: #4e1f87;
     --laranja: #ed7527;
     --laranja-claro: #fde9da;
+    --laranja-escuro: #9a3f0a;
     --branco: #ffffff;
     --texto: #2a1745;
     --texto-suave: #6e6383;
@@ -549,9 +550,25 @@ footer {
     background: var(--laranja-claro);
 }
 
-.aba-btn.ativa {
+/* Cada estado tem a sua cor quando a aba está ativa */
+.aba-btn.ativa[data-estante="quero_ler"] {
+    background: var(--laranja-claro);
+    color: var(--laranja-escuro);
+}
+
+.aba-btn.ativa[data-estante="lendo"] {
+    background: var(--laranja);
+    color: var(--texto);
+}
+
+.aba-btn.ativa[data-estante="lido"] {
     background: var(--roxo-forte);
-    color: white;
+    color: var(--branco);
+}
+
+.aba-btn.ativa[data-estante="abandonado"] {
+    background: #ece8f0;
+    color: var(--texto-suave);
 }
 
 /* ===== grid de livros ===== */
