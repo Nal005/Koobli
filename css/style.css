@@ -577,6 +577,12 @@ footer {
     background: url("../imgs/raposa.png") center / contain no-repeat;
 }
 
+/* Na biblioteca e nos favoritos a lista vazia ocupa a página toda: desce a raposa para o meio */
+.estante > .vazio,
+.dashboard-content > .vazio {
+    padding-top: 25vh;
+}
+
 /* ===== Formulário de estado (dropdown) ===== */
 .form-estado {
     margin-top: 10px;
