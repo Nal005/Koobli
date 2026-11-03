@@ -165,16 +165,17 @@ footer {
 .search button {
     padding: 16px 32px;
     border: none;
-    background: var(--roxo-forte);
-    color: white;
+    background: var(--laranja);
+    color: var(--texto);
     border-radius: 30px;
     font-weight: 600;
     cursor: pointer;
-    transition: background 0.2s ease;
+    transition: background 0.2s ease, color 0.2s ease;
 }
 
 .search button:hover {
-    background: var(--roxo-texto);
+    background: var(--roxo-forte);
+    color: white;
 }
 
 /* ===== Hero ===== */
@@ -237,15 +238,16 @@ footer {
     padding: 12px 24px;
     border: none;
     border-radius: 20px;
-    background: var(--roxo-forte);
-    color: white;
+    background: var(--laranja);
+    color: var(--texto);
     font-weight: 600;
     cursor: pointer;
-    transition: background 0.2s ease;
+    transition: background 0.2s ease, color 0.2s ease;
 }
 
 .btn-adicionar:hover {
-    background: var(--laranja);
+    background: var(--roxo-forte);
+    color: white;
 }
 
 /* ===== Card do gráfico (Hero direita) ===== */
