@@ -288,6 +288,11 @@ footer {
     opacity: 0.8;
 }
 
+/* Mês atual em destaque */
+.barra:last-child {
+    background: var(--laranja);
+}
+
 .barra span {
     position: absolute;
     bottom: -22px;
