@@ -159,7 +159,7 @@ footer {
 }
 
 .search input:focus {
-    outline: 2px solid var(--roxo-medio);
+    outline: 2px solid var(--laranja);
 }
 
 .search button {
@@ -432,7 +432,7 @@ footer {
 }
 
 .auth-container input:focus {
-    outline: 2px solid var(--roxo-medio);
+    outline: 2px solid var(--laranja);
 }
 
 .auth-container button {
@@ -568,7 +568,7 @@ footer {
 }
 
 .form-estado select:focus {
-    outline: 2px solid var(--roxo-medio);
+    outline: 2px solid var(--laranja);
 }
 /*=============== favoritos ===============*/
 .form-favorito {
@@ -725,7 +725,7 @@ footer {
 }
 
 .form-avaliar textarea:focus {
-    outline: 2px solid var(--roxo-medio);
+    outline: 2px solid var(--laranja);
 }
 .comentarios-section {
     margin-top: 15px;
@@ -758,7 +758,7 @@ footer {
 }
 
 .form-comentar textarea:focus {
-    outline: 2px solid var(--roxo-medio);
+    outline: 2px solid var(--laranja);
 }
 
 .comentario-card {
