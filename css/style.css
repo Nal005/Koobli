@@ -564,6 +564,17 @@ footer {
     color: var(--texto-suave);
     font-size: 14px;
     padding: 30px 0;
+    text-align: center;
+}
+
+/* Raposa a dormir por cima da mensagem de lista vazia */
+.vazio::before {
+    content: "";
+    display: block;
+    width: 90px;
+    height: 88px;
+    margin: 0 auto 12px;
+    background: url("../imgs/raposa.png") center / contain no-repeat;
 }
 
 /* ===== Formulário de estado (dropdown) ===== */
