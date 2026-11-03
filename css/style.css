@@ -1,3 +1,7 @@
+/* ===== Fonte dos títulos (Fredoka, Google Fonts) ===== */
+/* Fica aqui e não num <link> porque o login e o registo não usam o header.php */
+@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@700&display=swap');
+
 /* ===== Reset ===== */
 * {
     margin: 0;
@@ -506,6 +510,18 @@ footer {
     margin-top: 8px;
     border-radius: 2px;
     background: var(--laranja);
+}
+
+/* Títulos de página e de secção em Fredoka (formas redondas da logo) */
+.titulo-pagina,
+.auth-container h2,
+.livro-detalhe-info h2,
+.carrossel-section h2,
+.resultados-busca h2,
+.hero-grafico h3,
+.avaliacoes-section h3,
+.comentarios-section h3 {
+    font-family: 'Fredoka', 'Segoe UI', Arial, sans-serif;
 }
 
 /* ===== Abas ===== */
