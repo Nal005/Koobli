@@ -45,7 +45,7 @@ body {
 
 /* ===== Coluna da esquerda (logo + sidebar) ===== */
 .sidebar-wrapper {
-    width: 80px;
+    width: 160px;
     position: sticky;
     top: 0;
     height: 100vh;
@@ -62,14 +62,15 @@ body {
 }
 
 .logo-icon {
-    width: 42px;
-    height: 42px;
-    object-fit: contain;
+    width: 140px;
+    height: auto;
 }
 
 /* ===== Sidebar  ===== */
 .sidebar {
     flex: 1;
+    width: 80px;
+    align-self: center;
     background: var(--branco);
     border-radius: 14px;
     display: flex;
