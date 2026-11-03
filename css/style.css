@@ -6,18 +6,20 @@
     font-family: 'Segoe UI', Arial, sans-serif;
 }
 
-/* ===== Variáveis de cor (tons pastel) ===== */
+/* ===== Variáveis de cor (cores da logo) ===== */
+/* Roxo na navegação, laranja nas ações e destaques, creme no fundo */
 :root {
-    --bg: #f7f3fb;
-    --roxo-forte: #8b7cf7;
-    --roxo-medio: #a99cf9;
-    --roxo-claro: #ede9fc;
-    --roxo-texto: #6b5fc9;
-    --laranja: #ffb37a;
+    --bg: #fdf7ef;
+    --roxo-forte: #6c2eb2;
+    --roxo-medio: #8f5bd0;
+    --roxo-claro: #efe6fa;
+    --roxo-texto: #4e1f87;
+    --laranja: #ed7527;
+    --laranja-claro: #fde9da;
     --branco: #ffffff;
-    --texto: #3a3550;
-    --texto-suave: #8a84a3;
-    --sombra: rgba(139, 124, 247, 0.12);
+    --texto: #2a1745;
+    --texto-suave: #6e6383;
+    --sombra: rgba(108, 46, 178, 0.10);
 }
 
 body {
