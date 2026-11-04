@@ -413,13 +413,24 @@ footer {
 
 /* ===== Login / Registo ===== */
 .auth-container {
+    position: relative;
     max-width: 400px;
-    margin: 100px auto;
+    margin: 150px auto 100px;
     background: var(--branco);
     padding: 40px;
     border-radius: 25px;
     box-shadow: 0 5px 20px var(--sombra);
     text-align: center;
+}
+
+/* Raposa a espreitar por cima da caixa, como na logo espreita por cima do nome */
+/* Posiciona-se em relação à caixa, que tem position: relative */
+.auth-raposa {
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    width: 160px;
+    transform: translateX(-50%);
 }
 
 .auth-container h2 {
