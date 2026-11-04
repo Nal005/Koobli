@@ -58,7 +58,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         <img src="../imgs/raposa-espreita.png" alt="" class="auth-raposa">
 
-        <h2>Entrar</h2>
+        <h2>Bem-vindo de volta!</h2>
 
         <?php if ($erro): ?>
             <p class="erro"><?php echo $erro; ?></p>

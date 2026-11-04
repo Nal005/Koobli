@@ -70,7 +70,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         <img src="../imgs/raposa-espreita.png" alt="" class="auth-raposa">
 
-        <h2>Criar conta</h2>
+        <h2>Junta-te ao Koobli!</h2>
 
         <?php if ($erro): ?>
             <p class="erro"><?php echo $erro; ?></p>
