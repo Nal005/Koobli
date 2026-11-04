@@ -21,7 +21,7 @@ function classeAtiva($pagina, $paginaAtual) {
         </nav>
 
         <div class="sidebar-bottom">
-            <?php // Perfil escondido até existir a página (issue #12) ?>
+            <a href="<?php echo $raiz; ?>paginas/perfil.php" title="Perfil" class="sidebar-perfil<?php echo $paginaAtual === "perfil.php" ? " active" : ""; ?>"><i class="fi fi-rs-user"></i></a>
             <a href="<?php echo $raiz; ?>paginas/logout.php" title="Sair" class="sidebar-logout"><i class="fi fi-rs-exit"></i></a>
         </div>
     </aside>
