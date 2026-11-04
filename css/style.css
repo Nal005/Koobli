@@ -123,7 +123,8 @@ body {
     transform: scale(1.05);
 }
 
-.sidebar-nav a.active {
+.sidebar-nav a.active,
+.sidebar-perfil.active {
     background: var(--roxo-forte);
     color: white;
     box-shadow: 0 4px 12px var(--sombra);
