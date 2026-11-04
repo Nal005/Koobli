@@ -75,5 +75,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     </div>
 
+    <a href="inicio.php" class="auth-voltar">← Voltar ao início</a>
+
 </body>
 </html>

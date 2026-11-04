@@ -415,7 +415,7 @@ footer {
 .auth-container {
     position: relative;
     max-width: 400px;
-    margin: 150px auto 100px;
+    margin: 150px auto 20px;
     background: var(--branco);
     padding: 40px;
     border-radius: 25px;
@@ -477,6 +477,21 @@ footer {
 .auth-container a {
     color: var(--roxo-forte);
     font-weight: 600;
+}
+
+/* Link para voltar à página de apresentação, por baixo da caixa */
+/* align-self centra-o porque o body é flex em coluna */
+.auth-voltar {
+    align-self: center;
+    margin-bottom: 40px;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--texto-suave);
+    text-decoration: none;
+}
+
+.auth-voltar:hover {
+    color: var(--roxo-forte);
 }
 
 /* ===== Página de apresentação (quem ainda não tem sessão) ===== */
