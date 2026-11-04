@@ -704,7 +704,9 @@ footer {
 .comentarios-section h3,
 .apresentacao-texto h1,
 .apresentacao-secao h2,
-.funcionalidade h3 {
+.funcionalidade h3,
+.perfil-info h3,
+.perfil-estado strong {
     font-family: 'Fredoka', 'Segoe UI', Arial, sans-serif;
 }
 
@@ -733,23 +735,27 @@ footer {
     background: var(--laranja-claro);
 }
 
-/* Cada estado tem a sua cor quando a aba está ativa */
-.aba-btn.ativa[data-estante="quero_ler"] {
+/* Cada estado tem a sua cor quando a aba está ativa (e nos cartões do perfil) */
+.aba-btn.ativa[data-estante="quero_ler"],
+.perfil-estado[data-estante="quero_ler"] {
     background: var(--laranja-claro);
     color: var(--laranja-escuro);
 }
 
-.aba-btn.ativa[data-estante="lendo"] {
+.aba-btn.ativa[data-estante="lendo"],
+.perfil-estado[data-estante="lendo"] {
     background: var(--laranja);
     color: var(--texto);
 }
 
-.aba-btn.ativa[data-estante="lido"] {
+.aba-btn.ativa[data-estante="lido"],
+.perfil-estado[data-estante="lido"] {
     background: var(--roxo-forte);
     color: var(--branco);
 }
 
-.aba-btn.ativa[data-estante="abandonado"] {
+.aba-btn.ativa[data-estante="abandonado"],
+.perfil-estado[data-estante="abandonado"] {
     background: #ece8f0;
     color: var(--texto-suave);
 }
@@ -1022,4 +1028,78 @@ footer {
 .comentario-data {
     color: var(--texto-suave);
     font-size: 12px;
+}
+
+/* ===== Perfil ===== */
+.perfil-topo {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+    background: var(--branco);
+    border-radius: 20px;
+    padding: 25px;
+    margin-bottom: 20px;
+    box-shadow: 0 3px 10px var(--sombra);
+}
+
+.perfil-foto {
+    width: 110px;
+    height: 110px;
+    flex-shrink: 0;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.perfil-foto-raposa {
+    background: var(--roxo-claro);
+    object-fit: contain;
+    padding: 15px;
+}
+
+.perfil-info {
+    flex: 1;
+}
+
+.perfil-info h3 {
+    font-size: 22px;
+    margin-bottom: 4px;
+}
+
+.perfil-detalhe {
+    color: var(--texto-suave);
+    font-size: 14px;
+    margin-top: 2px;
+}
+
+.perfil-bio {
+    font-size: 14px;
+    line-height: 1.5;
+    margin-top: 12px;
+}
+
+.perfil-estados {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 15px;
+}
+
+.perfil-estado {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    border-radius: 20px;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 600;
+    box-shadow: 0 3px 10px var(--sombra);
+    transition: transform 0.2s ease;
+}
+
+.perfil-estado:hover {
+    transform: translateY(-3px);
+}
+
+.perfil-estado strong {
+    font-size: 32px;
 }

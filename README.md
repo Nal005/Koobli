@@ -15,12 +15,12 @@ Koobli é uma plataforma web para gerir leituras pessoais, inspirada no Skoob. C
 - **Favoritos.**
 - **Avaliações** de 1 a 5 estrelas, com texto opcional.
 - **Comentários** na página de cada livro.
+- **Perfil de utilizador** com foto, biografia e o número de livros em cada estante.
 
 **Planeadas**
 
 - **Salas de leitura coletiva:** espaços interativos onde vários utilizadores leem e discutem o mesmo livro em conjunto.
 - **Salas de foco:** sessões de leitura com temporizador, sozinho ou acompanhado, para manter a concentração.
-- Perfil de utilizador (foto e biografia).
 - Notificações e mensagens entre utilizadores.
 - Categorias de livros.
 
@@ -41,6 +41,7 @@ Koobli é uma plataforma web para gerir leituras pessoais, inspirada no Skoob. C
 │   ├── login.php / registo.php / logout.php
 │   ├── biblioteca.php        # Estantes do utilizador
 │   ├── favoritos.php         # Lista de favoritos
+│   ├── perfil.php            # Perfil do utilizador
 │   ├── livro.php             # Página de detalhe do livro
 │   └── ver_livro.php         # Guarda o livro vindo da API e redireciona para livro.php
 ├── acoes/                    # Recebem formulários (POST) e redirecionam
