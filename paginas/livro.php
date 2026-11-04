@@ -55,7 +55,7 @@ $avaliacoes = $stmtAval->get_result();
                 <form method="POST" action="../acoes/favoritar.php" class="form-favorito">
                     <?php echo campoCsrf(); ?>
                     <input type="hidden" name="api_id" value="<?php echo htmlspecialchars($livro['api_id']); ?>">
-                    <button type="submit" class="btn-coracao"><?php echo $ehFavorito ? '❤️' : '🤍'; ?></button>
+                    <button type="submit" class="btn-coracao" title="<?php echo $ehFavorito ? 'Remover dos favoritos' : 'Adicionar aos favoritos'; ?>"><i class="fi <?php echo $ehFavorito ? 'fi-ss-heart' : 'fi-rs-heart'; ?>"></i></button>
                 </form>
 
                 <form method="POST" action="../acoes/adicionar_biblioteca.php">

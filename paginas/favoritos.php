@@ -57,7 +57,7 @@ while ($linha = $resultado->fetch_assoc()) {
                     <form method="POST" action="../acoes/favoritar.php" class="form-favorito">
                         <?php echo campoCsrf(); ?>
                         <input type="hidden" name="api_id" value="<?php echo htmlspecialchars($livro['api_id']); ?>">
-                        <button type="submit" class="btn-coracao">❤️</button>
+                        <button type="submit" class="btn-coracao" title="Remover dos favoritos"><i class="fi fi-ss-heart"></i></button>
                     </form>
                 </div>
                 <?php endforeach; ?>

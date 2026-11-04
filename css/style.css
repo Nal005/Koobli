@@ -630,8 +630,13 @@ footer {
     background: none;
     border: none;
     font-size: 20px;
+    color: var(--texto-suave);
     cursor: pointer;
     transition: transform 0.15s ease;
+}
+
+.btn-coracao .fi-ss-heart {
+    color: var(--laranja);
 }
 
 .btn-coracao:hover {
