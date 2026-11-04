@@ -68,7 +68,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     <div class="auth-container">
 
-        <h2>Criar conta</h2>
+        <img src="../imgs/raposa-espreita.png" alt="" class="auth-raposa">
+
+        <h2>Junta-te ao Koobli!</h2>
 
         <?php if ($erro): ?>
             <p class="erro"><?php echo $erro; ?></p>
@@ -86,6 +88,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <p>Já tens conta? <a href="login.php">Entrar</a></p>
 
     </div>
+
+    <a href="inicio.php" class="auth-voltar">← Voltar ao início</a>
 
 </body>
 </html>
