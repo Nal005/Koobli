@@ -37,6 +37,7 @@ Koobli é uma plataforma web para gerir leituras pessoais, inspirada no Skoob. C
 .
 ├── index.php                 # Página inicial: pesquisa e carrossel
 ├── paginas/                  # Páginas que mostram HTML
+│   ├── inicio.php            # Apresentação do Koobli para quem ainda não tem sessão
 │   ├── login.php / registo.php / logout.php
 │   ├── biblioteca.php        # Estantes do utilizador
 │   ├── favoritos.php         # Lista de favoritos
