@@ -468,6 +468,159 @@ footer {
     font-weight: 600;
 }
 
+/* ===== Página de apresentação (quem ainda não tem sessão) ===== */
+.apresentacao {
+    flex: 1;
+    width: 100%;
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 30px 20px 40px;
+}
+
+.apresentacao-logo {
+    width: 130px;
+    height: auto;
+}
+
+.apresentacao-topo {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 40px;
+    margin: 30px 0 55px;
+}
+
+.apresentacao-texto {
+    max-width: 540px;
+}
+
+.apresentacao-texto h1 {
+    font-size: 40px;
+    color: var(--texto);
+    margin-bottom: 14px;
+}
+
+.apresentacao-texto p {
+    margin-bottom: 30px;
+    font-size: 17px;
+    line-height: 1.5;
+    color: var(--texto-suave);
+}
+
+.apresentacao-botoes {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.apresentacao-raposa {
+    flex-shrink: 0;
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    background: var(--roxo-claro);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.apresentacao-raposa img {
+    width: 220px;
+}
+
+.btn-criar-conta,
+.btn-entrar {
+    padding: 14px 34px;
+    border: 2px solid transparent;
+    border-radius: 30px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background 0.2s ease, color 0.2s ease;
+}
+
+.btn-criar-conta {
+    background: var(--laranja);
+    color: var(--texto);
+}
+
+.btn-criar-conta:hover {
+    background: var(--roxo-forte);
+    color: white;
+}
+
+.btn-entrar {
+    background: var(--branco);
+    border-color: var(--roxo-forte);
+    color: var(--roxo-forte);
+}
+
+.btn-entrar:hover {
+    background: var(--roxo-claro);
+}
+
+.funcionalidades {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 20px;
+}
+
+.funcionalidade {
+    background: var(--branco);
+    border-radius: 20px;
+    padding: 25px 20px;
+    text-align: center;
+    box-shadow: 0 3px 10px var(--sombra);
+}
+
+.funcionalidade i {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 52px;
+    height: 52px;
+    margin-bottom: 12px;
+    border-radius: 50%;
+    background: var(--roxo-claro);
+    color: var(--roxo-forte);
+    font-size: 22px;
+}
+
+.funcionalidade h3 {
+    font-size: 17px;
+    color: var(--texto);
+    margin-bottom: 6px;
+}
+
+.funcionalidade p {
+    font-size: 13px;
+    line-height: 1.5;
+    color: var(--texto-suave);
+}
+
+.apresentacao-secao {
+    margin-top: 45px;
+}
+
+.apresentacao-secao h2 {
+    font-size: 20px;
+    color: var(--texto);
+    margin-bottom: 18px;
+}
+
+.destaque-capas {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 20px;
+}
+
+.destaque-capas img {
+    width: 100%;
+    height: 190px;
+    object-fit: cover;
+    border-radius: 12px;
+    box-shadow: 0 3px 10px var(--sombra);
+}
+
 .erro {
     background: #ffe3e3;
     color: #c0392b;
@@ -503,6 +656,7 @@ footer {
 /* Traço laranja curto por baixo dos títulos de secção */
 .carrossel-section h2::after,
 .resultados-busca h2::after,
+.apresentacao-secao h2::after,
 .titulo-pagina::after {
     content: "";
     display: block;
@@ -521,7 +675,10 @@ footer {
 .resultados-busca h2,
 .hero-grafico h3,
 .avaliacoes-section h3,
-.comentarios-section h3 {
+.comentarios-section h3,
+.apresentacao-texto h1,
+.apresentacao-secao h2,
+.funcionalidade h3 {
     font-family: 'Fredoka', 'Segoe UI', Arial, sans-serif;
 }
 
