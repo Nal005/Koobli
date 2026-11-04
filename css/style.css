@@ -981,7 +981,8 @@ footer {
     margin-bottom: 18px;
 }
 
-.form-comentar {
+.form-comentar,
+.form-perfil {
     background: var(--branco);
     border-radius: 20px;
     padding: 20px;
@@ -1075,6 +1076,40 @@ footer {
     font-size: 14px;
     line-height: 1.5;
     margin-top: 12px;
+}
+
+.perfil-topo .btn-adicionar {
+    align-self: flex-end;
+}
+
+.form-perfil label {
+    display: block;
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 14px;
+}
+
+.form-perfil input[type="text"],
+.form-perfil input[type="file"],
+.form-perfil textarea {
+    display: block;
+    width: 100%;
+    margin-top: 6px;
+    padding: 12px 14px;
+    border: 1px solid #e5e0f5;
+    border-radius: 15px;
+    font-size: 14px;
+    font-family: inherit;
+}
+
+.form-perfil textarea {
+    min-height: 90px;
+    resize: vertical;
+}
+
+.form-perfil input:focus,
+.form-perfil textarea:focus {
+    outline: 2px solid var(--laranja);
 }
 
 .perfil-estados {

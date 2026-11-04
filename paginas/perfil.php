@@ -4,6 +4,7 @@ include __DIR__ . "/../includes/auth.php";
 include __DIR__ . "/../includes/header.php";
 
 include __DIR__ . "/../includes/config.php";
+include __DIR__ . "/../includes/csrf.php";
 
 $userId = $_SESSION['user_id'];
 
@@ -28,6 +29,9 @@ $rotulos = [
     'lido' => 'Lido',
     'abandonado' => 'Abandonado'
 ];
+
+$erro = $_SESSION['erro_perfil'] ?? "";
+unset($_SESSION['erro_perfil']);
 ?>
 
 <div class="app-layout">
@@ -37,6 +41,10 @@ $rotulos = [
     <main class="dashboard-content">
 
         <h2 class="titulo-pagina">Meu Perfil</h2>
+
+        <?php if ($erro): ?>
+            <p class="erro"><?php echo $erro; ?></p>
+        <?php endif; ?>
 
         <div class="perfil-topo">
             <?php if ($utilizador['foto_perfil']): ?>
@@ -53,7 +61,31 @@ $rotulos = [
                     <p class="perfil-bio"><?php echo nl2br(htmlspecialchars($utilizador['biografia'])); ?></p>
                 <?php endif; ?>
             </div>
+
+            <button type="button" class="btn-adicionar" id="btn-editar">Editar perfil</button>
         </div>
+
+        <form method="POST" action="../acoes/atualizar_perfil.php" enctype="multipart/form-data" class="form-perfil" id="form-perfil" style="display:none;">
+            <?php echo campoCsrf(); ?>
+
+            <label>Nome
+                <input type="text" name="nome" value="<?php echo htmlspecialchars($utilizador['nome']); ?>" maxlength="100" required>
+            </label>
+
+            <label>Biografia
+                <textarea name="biografia"><?php echo htmlspecialchars($utilizador['biografia'] ?? ""); ?></textarea>
+            </label>
+
+            <label>Foto (JPG, PNG ou WebP, até 2 MB)
+                <input type="file" name="foto" accept="image/jpeg,image/png,image/webp">
+            </label>
+
+            <?php if ($utilizador['foto_perfil']): ?>
+                <label><input type="checkbox" name="remover_foto"> Remover foto</label>
+            <?php endif; ?>
+
+            <button type="submit" class="btn-adicionar">Guardar</button>
+        </form>
 
         <div class="perfil-estados">
             <?php foreach ($rotulos as $chave => $rotulo): ?>
@@ -67,5 +99,12 @@ $rotulos = [
     </main>
 
 </div>
+
+<script>
+document.getElementById('btn-editar').addEventListener('click', () => {
+    const form = document.getElementById('form-perfil');
+    form.style.display = form.style.display === 'none' ? 'block' : 'none';
+});
+</script>
 
 <?php include __DIR__ . "/../includes/footer.php"; ?>
