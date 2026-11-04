@@ -65,7 +65,7 @@ unset($_SESSION['erro_perfil']);
             <button type="button" class="btn-adicionar" id="btn-editar">Editar perfil</button>
         </div>
 
-        <form method="POST" action="../acoes/atualizar_perfil.php" enctype="multipart/form-data" class="form-perfil" id="form-perfil" style="display:none;">
+        <form method="POST" action="../acoes/atualizar_perfil.php" enctype="multipart/form-data" class="form-perfil" id="form-perfil" style="<?php echo $erro ? '' : 'display:none;'; ?>">
             <?php echo campoCsrf(); ?>
 
             <label>Nome
