@@ -4,9 +4,15 @@ include "includes/header.php";
 include "includes/config.php";
 include "includes/livros.php";
 include "includes/favoritos_helper.php";
+include "includes/grafico_leitura.php";
 include "includes/csrf.php";
 
 $favoritosApiIds = obterApiIdsFavoritos($conn, $_SESSION['user_id']);
+
+// Gráfico de frequência de leitura: o mês com mais livros lidos fica com a barra cheia (100%)
+$leiturasPorMes = obterLeiturasPorMes($conn, $_SESSION['user_id']);
+$maximoLidos = max(array_column($leiturasPorMes, 'total'));
+$temLivrosLidos = temLivrosLidos($conn, $_SESSION['user_id']);
 
 include_once "includes/apikey.php";
 $apiKey = GOOGLE_BOOKS_API_KEY;
@@ -150,14 +156,19 @@ $destaque = $bestsellers[0] ?? null;
 
             <div class="hero-grafico">
                 <h3>Frequência de leitura</h3>
+                <?php if ($temLivrosLidos): ?>
                 <div class="grafico-barras">
-                    <div class="barra" style="height: 40%;"><span>Jan</span></div>
-                    <div class="barra" style="height: 65%;"><span>Fev</span></div>
-                    <div class="barra" style="height: 30%;"><span>Mar</span></div>
-                    <div class="barra" style="height: 80%;"><span>Abr</span></div>
-                    <div class="barra" style="height: 55%;"><span>Mai</span></div>
-                    <div class="barra" style="height: 90%;"><span>Jun</span></div>
+                    <?php foreach ($leiturasPorMes as $mes):
+                        // Sem livros nos 6 meses o máximo é 0: evita dividir por 0 (o CSS mostra a barra baixinha)
+                        $altura = $maximoLidos > 0 ? round($mes['total'] / $maximoLidos * 100) : 0;
+                        $dica = $mes['total'] . ($mes['total'] == 1 ? " livro" : " livros");
+                    ?>
+                    <div class="barra" style="height: <?php echo $altura; ?>%;" title="<?php echo $dica; ?>"><span><?php echo $mes['nome']; ?></span></div>
+                    <?php endforeach; ?>
                 </div>
+                <?php else: ?>
+                <p class="vazio">Ainda não leste nenhum livro.</p>
+                <?php endif; ?>
             </div>
 
         </section>
