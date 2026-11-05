@@ -20,15 +20,7 @@ function obterOuCriarLivro($conn, $apiId) {
         return $livro['id'];
     }
 
-    $url = "https://www.googleapis.com/books/v1/volumes/" . $apiId . "?key=" . GOOGLE_BOOKS_API_KEY;
-    $resposta = @file_get_contents($url);
-
-    if (!$resposta) {
-        return null;
-    }
-
-    $dados = json_decode($resposta, true);
-    $info = $dados['volumeInfo'] ?? [];
+    $info = pedirVolume($apiId);
 
     if (empty($info['title'])) {
         return null;
@@ -49,6 +41,19 @@ function obterOuCriarLivro($conn, $apiId) {
     $stmt->execute();
 
     return $stmt->insert_id;
+}
+
+// Pede um livro à Google Books e devolve o volumeInfo (null se o pedido falhar)
+function pedirVolume($apiId) {
+    $url = "https://www.googleapis.com/books/v1/volumes/" . $apiId . "?key=" . GOOGLE_BOOKS_API_KEY;
+    $resposta = @file_get_contents($url);
+
+    if (!$resposta) {
+        return null;
+    }
+
+    $dados = json_decode($resposta, true);
+    return $dados['volumeInfo'] ?? null;
 }
 
 function urlCapa($capa, $raiz = "") {
