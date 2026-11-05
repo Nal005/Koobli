@@ -68,7 +68,9 @@ body {
     padding: 20px 0;
 }
 
+/* block: dentro do link, uma imagem inline deixava espaço por baixo e descia a sidebar */
 .logo-icon {
+    display: block;
     width: 140px;
     height: auto;
 }

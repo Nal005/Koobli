@@ -9,7 +9,7 @@ function classeAtiva($pagina, $paginaAtual) {
 <div class="sidebar-wrapper">
 
     <div class="brand-bar">
-        <img src="<?php echo $raiz; ?>imgs/kooblilogof.png" alt="Koobli" class="logo-icon">
+        <a href="<?php echo $raiz; ?>index.php" title="Página inicial"><img src="<?php echo $raiz; ?>imgs/kooblilogof.png" alt="Koobli" class="logo-icon"></a>
     </div>
 
     <aside class="sidebar">
