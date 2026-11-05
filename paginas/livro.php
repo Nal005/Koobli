@@ -34,6 +34,12 @@ $stmtBib->bind_param("ii", $userId, $livroId);
 $stmtBib->execute();
 $livroNaBiblioteca = $stmtBib->get_result()->fetch_assoc();
 
+// Avaliação que o utilizador já deu a este livro (null se ainda não avaliou)
+$stmtMinhaAval = $conn->prepare("SELECT nota, texto FROM avaliacoes WHERE utilizador_id = ? AND livro_id = ?");
+$stmtMinhaAval->bind_param("ii", $userId, $livroId);
+$stmtMinhaAval->execute();
+$minhaAvaliacao = $stmtMinhaAval->get_result()->fetch_assoc();
+
 $rotulos = [
     'quero_ler' => 'Quero Ler',
     'lendo' => 'Lendo',
@@ -134,22 +140,21 @@ $avaliacoes = $stmtAval->get_result();
 
         <section class="avaliacoes-section">
             <div class="form-avaliar">
-                <h3>Deixe sua avaliação</h3>
+                <h3><?php echo $minhaAvaliacao ? 'A tua avaliação' : 'Deixe sua avaliação'; ?></h3>
                 <form method="POST" action="../acoes/avaliar.php">
                     <?php echo campoCsrf(); ?>
                     <input type="hidden" name="livro_id" value="<?php echo $livro['id']; ?>">
 
                     <div class="estrelas-input">
-                        <input type="radio" name="nota" id="nota5" value="5"><label for="nota5"><i class="fi fi-rs-star"></i><i class="fi fi-ss-star"></i></label>
-                        <input type="radio" name="nota" id="nota4" value="4"><label for="nota4"><i class="fi fi-rs-star"></i><i class="fi fi-ss-star"></i></label>
-                        <input type="radio" name="nota" id="nota3" value="3"><label for="nota3"><i class="fi fi-rs-star"></i><i class="fi fi-ss-star"></i></label>
-                        <input type="radio" name="nota" id="nota2" value="2"><label for="nota2"><i class="fi fi-rs-star"></i><i class="fi fi-ss-star"></i></label>
-                        <input type="radio" name="nota" id="nota1" value="1"><label for="nota1"><i class="fi fi-rs-star"></i><i class="fi fi-ss-star"></i></label>
+                        <?php // De 5 para 1, como antes: o CSS inverte a ordem para pintar as estrelas anteriores ?>
+                        <?php for ($n = 5; $n >= 1; $n--): ?>
+                            <input type="radio" name="nota" id="nota<?php echo $n; ?>" value="<?php echo $n; ?>" <?php echo ($minhaAvaliacao['nota'] ?? 0) == $n ? 'checked' : ''; ?>><label for="nota<?php echo $n; ?>"><i class="fi fi-rs-star"></i><i class="fi fi-ss-star"></i></label>
+                        <?php endfor; ?>
                     </div>
 
-                    <textarea name="texto" placeholder="Escreve o que achaste do livro (opcional)..."></textarea>
+                    <textarea name="texto" placeholder="Escreve o que achaste do livro (opcional)..."><?php echo htmlspecialchars($minhaAvaliacao['texto'] ?? ''); ?></textarea>
 
-                    <button type="submit" class="btn-adicionar">Enviar avaliação</button>
+                    <button type="submit" class="btn-adicionar"><?php echo $minhaAvaliacao ? 'Atualizar avaliação' : 'Enviar avaliação'; ?></button>
                 </form>
             </div>
 
