@@ -905,15 +905,28 @@ footer {
     font-weight: 600;
 }
 
-/* O dropdown e o botão vêm da Biblioteca, onde ocupam a largura do cartão */
-.livro-biblioteca .form-estado,
-.livro-biblioteca .btn-mini {
+/* O dropdown vem da Biblioteca, onde ocupa a largura do cartão */
+.livro-biblioteca .form-estado {
     margin-top: 0;
 }
 
-.livro-biblioteca .form-estado select,
-.livro-biblioteca .btn-mini {
+.livro-biblioteca .form-estado select {
     width: auto;
+}
+
+/* Remover da biblioteca: só o ícone, como o coração dos favoritos */
+.btn-lixo {
+    background: none;
+    border: none;
+    font-size: 18px;
+    color: var(--texto-suave);
+    cursor: pointer;
+    transition: color 0.2s ease, transform 0.15s ease;
+}
+
+.btn-lixo:hover {
+    color: var(--laranja-escuro);
+    transform: scale(1.2);
 }
 
 .livro-datas {

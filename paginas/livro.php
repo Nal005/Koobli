@@ -119,7 +119,7 @@ $avaliacoes = $stmtAval->get_result();
                             <?php echo campoCsrf(); ?>
                             <input type="hidden" name="biblioteca_id" value="<?php echo $livroNaBiblioteca['id']; ?>">
                             <input type="hidden" name="livro_id" value="<?php echo $livro['id']; ?>">
-                            <button type="submit" class="btn-mini">Remover</button>
+                            <button type="submit" class="btn-lixo" title="Remover da biblioteca"><i class="fi fi-rs-trash"></i></button>
                         </form>
                     </div>
 
