@@ -28,7 +28,10 @@ function obterLeiturasPorMes($conn, $userId) {
     $resultado = $stmt->get_result();
 
     while ($linha = $resultado->fetch_assoc()) {
-        $meses[$linha['mes']]['total'] = $linha['total'];
+        // Só guarda os meses que aparecem no gráfico (ignora, por exemplo, uma data no futuro)
+        if (isset($meses[$linha['mes']])) {
+            $meses[$linha['mes']]['total'] = $linha['total'];
+        }
     }
     return $meses;
 }
