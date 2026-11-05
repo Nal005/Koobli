@@ -891,6 +891,33 @@ footer {
     margin-top: 5px;
 }
 
+/* Sinopse: usa o estilo da descrição do destaque, e as compridas mostram só 4 linhas até carregar em "Ler mais" */
+.livro-sinopse strong {
+    font-size: 15px;
+}
+
+.hero-descricao.cortada {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 4;
+    line-clamp: 4;
+    overflow: hidden;
+}
+
+.btn-ler-mais {
+    background: none;
+    border: none;
+    margin-top: 4px;
+    color: var(--roxo-forte);
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.btn-ler-mais:hover {
+    text-decoration: underline;
+}
+
 /* Livro já na biblioteca: etiqueta do estado, dropdown e botão de remover na mesma linha */
 .livro-biblioteca {
     display: flex;

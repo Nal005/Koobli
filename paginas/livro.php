@@ -28,6 +28,11 @@ $favoritosApiIds = obterApiIdsFavoritos($conn, $userId);
 $ehFavorito = in_array($livro['api_id'], $favoritosApiIds);
 $mediaAvaliacoes = obterMediaAvaliacoes($conn, $livro['api_id']);
 
+$sinopse = obterOuGuardarSinopse($conn, $livro);
+// Sinopses compridas aparecem cortadas (classe "cortada" no CSS) até carregar em "Ler mais".
+// 500 letras já passam das 4 linhas que o CSS mostra num ecrã de portátil
+$sinopseComprida = mb_strlen($sinopse) > 500;
+
 // Linha do livro na biblioteca do utilizador (null se ainda não o adicionou)
 $stmtBib = $conn->prepare("SELECT id, estado, data_inicio, data_fim FROM biblioteca WHERE utilizador_id = ? AND livro_id = ?");
 $stmtBib->bind_param("ii", $userId, $livroId);
@@ -89,6 +94,19 @@ $avaliacoes = $stmtAval->get_result();
                         <span><?php echo number_format($mediaAvaliacoes['media'], 1, ",", ""); ?> (<?php echo $mediaAvaliacoes['total'] == 1 ? "1 avaliação" : $mediaAvaliacoes['total'] . " avaliações"; ?>)</span>
                     <?php else: ?>
                         <span>Ainda sem avaliações</span>
+                    <?php endif; ?>
+                </div>
+
+                <div class="livro-sinopse">
+                    <strong>Sinopse</strong>
+                    <?php if ($sinopse === ""): ?>
+                        <p class="hero-descricao">Este livro ainda não tem sinopse.</p>
+                    <?php else: ?>
+                        <p class="hero-descricao<?php echo $sinopseComprida ? ' cortada' : ''; ?>"><?php echo nl2br(htmlspecialchars($sinopse)); ?></p>
+                        <?php if ($sinopseComprida): ?>
+                            <?php // toggle() tira ou põe a classe e devolve true se ela ficou, ou seja, se o texto voltou a estar cortado ?>
+                            <button type="button" class="btn-ler-mais" onclick="this.textContent = this.previousElementSibling.classList.toggle('cortada') ? 'Ler mais' : 'Ler menos'">Ler mais</button>
+                        <?php endif; ?>
                     <?php endif; ?>
                 </div>
 
