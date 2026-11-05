@@ -26,6 +26,7 @@ $livro = $resultado->fetch_assoc();
 $userId = $_SESSION['user_id'];
 $favoritosApiIds = obterApiIdsFavoritos($conn, $userId);
 $ehFavorito = in_array($livro['api_id'], $favoritosApiIds);
+$mediaAvaliacoes = obterMediaAvaliacoes($conn, $livro['api_id']);
 
 
 $stmtAval = $conn->prepare("
@@ -52,6 +53,15 @@ $avaliacoes = $stmtAval->get_result();
                 <h2><?php echo htmlspecialchars($livro['titulo']); ?></h2>
                 <p class="hero-autor"><?php echo htmlspecialchars($livro['autor_principal']); ?></p>
 
+                <div class="hero-estrelas">
+                    <?php if ($mediaAvaliacoes['total'] > 0): ?>
+                        <?php echo iconesEstrelas($mediaAvaliacoes['media']); ?>
+                        <span><?php echo number_format($mediaAvaliacoes['media'], 1, ",", ""); ?> (<?php echo $mediaAvaliacoes['total'] == 1 ? "1 avaliação" : $mediaAvaliacoes['total'] . " avaliações"; ?>)</span>
+                    <?php else: ?>
+                        <span>Ainda sem avaliações</span>
+                    <?php endif; ?>
+                </div>
+
                 <form method="POST" action="../acoes/favoritar.php" class="form-favorito">
                     <?php echo campoCsrf(); ?>
                     <input type="hidden" name="api_id" value="<?php echo htmlspecialchars($livro['api_id']); ?>">
@@ -75,11 +85,11 @@ $avaliacoes = $stmtAval->get_result();
                     <input type="hidden" name="livro_id" value="<?php echo $livro['id']; ?>">
 
                     <div class="estrelas-input">
-                        <input type="radio" name="nota" id="nota5" value="5"><label for="nota5">★</label>
-                        <input type="radio" name="nota" id="nota4" value="4"><label for="nota4">★</label>
-                        <input type="radio" name="nota" id="nota3" value="3"><label for="nota3">★</label>
-                        <input type="radio" name="nota" id="nota2" value="2"><label for="nota2">★</label>
-                        <input type="radio" name="nota" id="nota1" value="1"><label for="nota1">★</label>
+                        <input type="radio" name="nota" id="nota5" value="5"><label for="nota5"><i class="fi fi-rs-star"></i><i class="fi fi-ss-star"></i></label>
+                        <input type="radio" name="nota" id="nota4" value="4"><label for="nota4"><i class="fi fi-rs-star"></i><i class="fi fi-ss-star"></i></label>
+                        <input type="radio" name="nota" id="nota3" value="3"><label for="nota3"><i class="fi fi-rs-star"></i><i class="fi fi-ss-star"></i></label>
+                        <input type="radio" name="nota" id="nota2" value="2"><label for="nota2"><i class="fi fi-rs-star"></i><i class="fi fi-ss-star"></i></label>
+                        <input type="radio" name="nota" id="nota1" value="1"><label for="nota1"><i class="fi fi-rs-star"></i><i class="fi fi-ss-star"></i></label>
                     </div>
 
                     <textarea name="texto" placeholder="Escreve o que achaste do livro (opcional)..."></textarea>
@@ -97,7 +107,7 @@ $avaliacoes = $stmtAval->get_result();
                 <div class="avaliacao-card">
                     <div class="avaliacao-topo">
                         <strong><?php echo htmlspecialchars($aval['nome']); ?></strong>
-                        <span class="avaliacao-estrelas"><?php echo str_repeat('★', $aval['nota']) . str_repeat('☆', 5 - $aval['nota']); ?></span>
+                        <span class="avaliacao-estrelas"><?php echo iconesEstrelas($aval['nota']); ?></span>
                     </div>
                     <?php if ($aval['texto']): ?>
                         <p class="avaliacao-texto"><?php echo htmlspecialchars($aval['texto']); ?></p>

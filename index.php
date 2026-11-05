@@ -114,6 +114,7 @@ $destaque = $bestsellers[0] ?? null;
                 $imagem = $info['imageLinks']['thumbnail'] ?? "";
                 $descricao = $info['description'] ?? "Sem descrição disponível.";
                 $descricaoResumida = mb_strlen($descricao) > 150 ? mb_substr($descricao, 0, 150) . "..." : $descricao;
+                $mediaAvaliacoes = obterMediaAvaliacoes($conn, $destaque['id'] ?? '');
             ?>
             <div class="hero-destaque">
 
@@ -130,7 +131,14 @@ $destaque = $bestsellers[0] ?? null;
                     </a>
                     <p class="hero-autor"><?php echo htmlspecialchars($autor); ?></p>
                     <p class="hero-descricao"><?php echo htmlspecialchars($descricaoResumida); ?></p>
-                    <div class="hero-estrelas">★★★★☆</div>
+                    <div class="hero-estrelas">
+                        <?php if ($mediaAvaliacoes['total'] > 0): ?>
+                            <?php echo iconesEstrelas($mediaAvaliacoes['media']); ?>
+                            <span><?php echo number_format($mediaAvaliacoes['media'], 1, ",", ""); ?> (<?php echo $mediaAvaliacoes['total'] == 1 ? "1 avaliação" : $mediaAvaliacoes['total'] . " avaliações"; ?>)</span>
+                        <?php else: ?>
+                            <span>Ainda sem avaliações</span>
+                        <?php endif; ?>
+                    </div>
 
                     <?php
                     $ehFavorito = in_array($destaque['id'] ?? '', $favoritosApiIds);
