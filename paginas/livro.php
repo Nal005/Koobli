@@ -85,11 +85,11 @@ $avaliacoes = $stmtAval->get_result();
                     <input type="hidden" name="livro_id" value="<?php echo $livro['id']; ?>">
 
                     <div class="estrelas-input">
-                        <input type="radio" name="nota" id="nota5" value="5"><label for="nota5">★</label>
-                        <input type="radio" name="nota" id="nota4" value="4"><label for="nota4">★</label>
-                        <input type="radio" name="nota" id="nota3" value="3"><label for="nota3">★</label>
-                        <input type="radio" name="nota" id="nota2" value="2"><label for="nota2">★</label>
-                        <input type="radio" name="nota" id="nota1" value="1"><label for="nota1">★</label>
+                        <input type="radio" name="nota" id="nota5" value="5"><label for="nota5"><i class="fi fi-rs-star"></i><i class="fi fi-ss-star"></i></label>
+                        <input type="radio" name="nota" id="nota4" value="4"><label for="nota4"><i class="fi fi-rs-star"></i><i class="fi fi-ss-star"></i></label>
+                        <input type="radio" name="nota" id="nota3" value="3"><label for="nota3"><i class="fi fi-rs-star"></i><i class="fi fi-ss-star"></i></label>
+                        <input type="radio" name="nota" id="nota2" value="2"><label for="nota2"><i class="fi fi-rs-star"></i><i class="fi fi-ss-star"></i></label>
+                        <input type="radio" name="nota" id="nota1" value="1"><label for="nota1"><i class="fi fi-rs-star"></i><i class="fi fi-ss-star"></i></label>
                     </div>
 
                     <textarea name="texto" placeholder="Escreve o que achaste do livro (opcional)..."></textarea>
@@ -107,7 +107,7 @@ $avaliacoes = $stmtAval->get_result();
                 <div class="avaliacao-card">
                     <div class="avaliacao-topo">
                         <strong><?php echo htmlspecialchars($aval['nome']); ?></strong>
-                        <span class="avaliacao-estrelas"><?php echo str_repeat('★', $aval['nota']) . str_repeat('☆', 5 - $aval['nota']); ?></span>
+                        <span class="avaliacao-estrelas"><?php echo iconesEstrelas($aval['nota']); ?></span>
                     </div>
                     <?php if ($aval['texto']): ?>
                         <p class="avaliacao-texto"><?php echo htmlspecialchars($aval['texto']); ?></p>
