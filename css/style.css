@@ -745,27 +745,31 @@ footer {
     background: var(--laranja-claro);
 }
 
-/* Cada estado tem a sua cor quando a aba está ativa (e nos cartões do perfil) */
+/* Cada estado tem a sua cor quando a aba está ativa (e nos cartões do perfil e na etiqueta do livro) */
 .aba-btn.ativa[data-estante="quero_ler"],
-.perfil-estado[data-estante="quero_ler"] {
+.perfil-estado[data-estante="quero_ler"],
+.livro-estado[data-estante="quero_ler"] {
     background: var(--laranja-claro);
     color: var(--laranja-escuro);
 }
 
 .aba-btn.ativa[data-estante="lendo"],
-.perfil-estado[data-estante="lendo"] {
+.perfil-estado[data-estante="lendo"],
+.livro-estado[data-estante="lendo"] {
     background: var(--laranja);
     color: var(--texto);
 }
 
 .aba-btn.ativa[data-estante="lido"],
-.perfil-estado[data-estante="lido"] {
+.perfil-estado[data-estante="lido"],
+.livro-estado[data-estante="lido"] {
     background: var(--roxo-forte);
     color: var(--branco);
 }
 
 .aba-btn.ativa[data-estante="abandonado"],
-.perfil-estado[data-estante="abandonado"] {
+.perfil-estado[data-estante="abandonado"],
+.livro-estado[data-estante="abandonado"] {
     background: #ece8f0;
     color: var(--texto-suave);
 }
@@ -883,6 +887,38 @@ footer {
 
 .livro-detalhe-info .form-favorito {
     margin-top: 5px;
+}
+
+/* Livro já na biblioteca: etiqueta do estado, dropdown e botão de remover na mesma linha */
+.livro-biblioteca {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.livro-estado {
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+/* O dropdown e o botão vêm da Biblioteca, onde ocupam a largura do cartão */
+.livro-biblioteca .form-estado,
+.livro-biblioteca .btn-mini {
+    margin-top: 0;
+}
+
+.livro-biblioteca .form-estado select,
+.livro-biblioteca .btn-mini {
+    width: auto;
+}
+
+.livro-datas {
+    color: var(--texto-suave);
+    font-size: 13px;
 }
 
 /* ===== Avaliações ===== */

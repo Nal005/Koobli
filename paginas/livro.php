@@ -28,6 +28,30 @@ $favoritosApiIds = obterApiIdsFavoritos($conn, $userId);
 $ehFavorito = in_array($livro['api_id'], $favoritosApiIds);
 $mediaAvaliacoes = obterMediaAvaliacoes($conn, $livro['api_id']);
 
+// Linha do livro na biblioteca do utilizador (null se ainda não o adicionou)
+$stmtBib = $conn->prepare("SELECT id, estado, data_inicio, data_fim FROM biblioteca WHERE utilizador_id = ? AND livro_id = ?");
+$stmtBib->bind_param("ii", $userId, $livroId);
+$stmtBib->execute();
+$livroNaBiblioteca = $stmtBib->get_result()->fetch_assoc();
+
+$rotulos = [
+    'quero_ler' => 'Quero Ler',
+    'lendo' => 'Lendo',
+    'lido' => 'Lido',
+    'abandonado' => 'Abandonado'
+];
+
+// Só mostra as datas que fazem sentido para o estado atual
+// (a BD guarda-as ao passar a Lendo ou Lido e não as apaga ao mudar de estado)
+$datasLeitura = [];
+if ($livroNaBiblioteca) {
+    if ($livroNaBiblioteca['estado'] !== 'quero_ler' && $livroNaBiblioteca['data_inicio']) {
+        $datasLeitura[] = "Começaste a ler a " . date('d/m/Y', strtotime($livroNaBiblioteca['data_inicio']));
+    }
+    if ($livroNaBiblioteca['estado'] === 'lido' && $livroNaBiblioteca['data_fim']) {
+        $datasLeitura[] = "Acabaste a " . date('d/m/Y', strtotime($livroNaBiblioteca['data_fim']));
+    }
+}
 
 $stmtAval = $conn->prepare("
     SELECT a.nota, a.texto, a.data_avaliacao, u.nome, u.username
@@ -68,11 +92,42 @@ $avaliacoes = $stmtAval->get_result();
                     <button type="submit" class="btn-coracao" title="<?php echo $ehFavorito ? 'Remover dos favoritos' : 'Adicionar aos favoritos'; ?>"><i class="fi <?php echo $ehFavorito ? 'fi-ss-heart' : 'fi-rs-heart'; ?>"></i></button>
                 </form>
 
-                <form method="POST" action="../acoes/adicionar_biblioteca.php">
-                    <?php echo campoCsrf(); ?>
-                    <input type="hidden" name="api_id" value="<?php echo htmlspecialchars($livro['api_id']); ?>">
-                    <button type="submit" class="btn-adicionar">+ Adicionar à biblioteca</button>
-                </form>
+                <?php if ($livroNaBiblioteca): ?>
+                    <div class="livro-biblioteca">
+                        <span class="livro-estado" data-estante="<?php echo $livroNaBiblioteca['estado']; ?>"><?php echo $rotulos[$livroNaBiblioteca['estado']]; ?></span>
+
+                        <form method="POST" action="../acoes/atualizar_estado.php" class="form-estado">
+                            <?php echo campoCsrf(); ?>
+                            <input type="hidden" name="biblioteca_id" value="<?php echo $livroNaBiblioteca['id']; ?>">
+                            <input type="hidden" name="livro_id" value="<?php echo $livro['id']; ?>">
+                            <select name="estado" onchange="this.form.submit()">
+                                <option value="" disabled selected>Mudar estado…</option>
+                                <?php foreach ($rotulos as $valor => $texto): ?>
+                                    <?php // O estado atual fica desativado: escolhê-lo outra vez voltaria a gravar a data de hoje ?>
+                                    <option value="<?php echo $valor; ?>" <?php echo $valor === $livroNaBiblioteca['estado'] ? 'disabled' : ''; ?>><?php echo $texto; ?></option>
+                                <?php endforeach; ?>
+                            </select>
+                        </form>
+
+                        <form method="POST" action="../acoes/remover_biblioteca.php" onsubmit="return confirm('Remover este livro da biblioteca?');">
+                            <?php echo campoCsrf(); ?>
+                            <input type="hidden" name="biblioteca_id" value="<?php echo $livroNaBiblioteca['id']; ?>">
+                            <input type="hidden" name="livro_id" value="<?php echo $livro['id']; ?>">
+                            <button type="submit" class="btn-mini">Remover</button>
+                        </form>
+                    </div>
+
+                    <?php if ($datasLeitura): ?>
+                        <p class="livro-datas"><?php echo implode(" · ", $datasLeitura); ?></p>
+                    <?php endif; ?>
+                <?php else: ?>
+                    <form method="POST" action="../acoes/adicionar_biblioteca.php">
+                        <?php echo campoCsrf(); ?>
+                        <input type="hidden" name="api_id" value="<?php echo htmlspecialchars($livro['api_id']); ?>">
+                        <input type="hidden" name="livro_id" value="<?php echo $livro['id']; ?>">
+                        <button type="submit" class="btn-adicionar">+ Adicionar à biblioteca</button>
+                    </form>
+                <?php endif; ?>
             </div>
 
         </div>

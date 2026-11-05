@@ -19,5 +19,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
+// Se o pedido veio da página do livro, volta para lá
+if (!empty($_POST['livro_id'])) {
+    header("Location: ../paginas/livro.php?id=" . (int) $_POST['livro_id']);
+    exit;
+}
+
 header("Location: ../paginas/biblioteca.php");
 exit;
