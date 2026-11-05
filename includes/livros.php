@@ -46,7 +46,10 @@ function obterOuCriarLivro($conn, $apiId) {
 // Pede um livro à Google Books e devolve o volumeInfo (null se o pedido falhar)
 function pedirVolume($apiId) {
     $url = "https://www.googleapis.com/books/v1/volumes/" . $apiId . "?key=" . GOOGLE_BOOKS_API_KEY;
-    $resposta = @file_get_contents($url);
+
+    // Espera no máximo 5 segundos: se a Google Books não responder, a página abre na mesma
+    $contexto = stream_context_create(['http' => ['timeout' => 5]]);
+    $resposta = @file_get_contents($url, false, $contexto);
 
     if (!$resposta) {
         return null;
