@@ -30,14 +30,15 @@ function obterOuCriarLivro($conn, $apiId) {
     $autor = $info['authors'][0] ?? "Autor desconhecido";
     $isbn = $info['industryIdentifiers'][0]['identifier'] ?? "";
     $capa = $info['imageLinks']['thumbnail'] ?? "";
+    $descricao = limparSinopse($info['description'] ?? "");
 
     // Se outro pedido já inseriu este livro (ex.: duplo clique), o UNIQUE do api_id
     // não deixa duplicar e LAST_INSERT_ID(id) faz o insert_id devolver o id existente
     $stmt = $conn->prepare("
-        INSERT INTO livros (api_id, titulo, autor_principal, isbn, capa) VALUES (?, ?, ?, ?, ?)
+        INSERT INTO livros (api_id, titulo, autor_principal, isbn, capa, descricao) VALUES (?, ?, ?, ?, ?, ?)
         ON DUPLICATE KEY UPDATE id = LAST_INSERT_ID(id)
     ");
-    $stmt->bind_param("sssss", $apiId, $titulo, $autor, $isbn, $capa);
+    $stmt->bind_param("ssssss", $apiId, $titulo, $autor, $isbn, $capa, $descricao);
     $stmt->execute();
 
     return $stmt->insert_id;
@@ -57,6 +58,47 @@ function pedirVolume($apiId) {
 
     $dados = json_decode($resposta, true);
     return $dados['volumeInfo'] ?? null;
+}
+
+// A descrição da Google Books pode trazer HTML (<p>, <b>, <br>): fica só o texto,
+// com cada <br> numa linha nova e uma linha em branco entre parágrafos
+function limparSinopse($descricao) {
+    $texto = preg_replace('/<br\s*\/?>|<\/li>/i', "\n", $descricao);
+    $texto = str_ireplace("</p>", "\n\n", $texto);
+    $texto = html_entity_decode(strip_tags($texto), ENT_QUOTES | ENT_HTML5, "UTF-8");
+
+    // O &nbsp; vira um espaço especial (U+00A0) que o trim() não tira: passa a espaço normal
+    $texto = str_replace("\u{A0}", " ", $texto);
+
+    // Tira os espaços à volta de cada linha e junta várias linhas em branco numa só
+    $texto = preg_replace('/ *\n */', "\n", $texto);
+    $texto = preg_replace('/\n{3,}/', "\n\n", $texto);
+
+    return trim($texto);
+}
+
+// Devolve a sinopse do livro ("" se não houver). Os livros guardados antes da coluna
+// descricao existir têm-na a NULL: vai buscá-la uma vez à Google Books e guarda-a
+// ("" quer dizer que a Google Books não tem sinopse, por isso não volta a pedir)
+function obterOuGuardarSinopse($conn, $livro) {
+    if ($livro['descricao'] !== null) {
+        return $livro['descricao'];
+    }
+
+    $info = pedirVolume($livro['api_id']);
+
+    // O pedido falhou (sem internet, quota esgotada...): fica NULL e tenta na próxima visita
+    if ($info === null) {
+        return "";
+    }
+
+    $descricao = limparSinopse($info['description'] ?? "");
+
+    $stmt = $conn->prepare("UPDATE livros SET descricao = ? WHERE id = ?");
+    $stmt->bind_param("si", $descricao, $livro['id']);
+    $stmt->execute();
+
+    return $descricao;
 }
 
 function urlCapa($capa, $raiz = "") {

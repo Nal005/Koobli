@@ -116,7 +116,8 @@ CREATE TABLE `livros` (
   `titulo` varchar(255) NOT NULL,
   `autor_principal` varchar(255) DEFAULT NULL,
   `isbn` varchar(20) DEFAULT NULL,
-  `capa` varchar(255) DEFAULT NULL
+  `capa` varchar(255) DEFAULT NULL,
+  `descricao` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
