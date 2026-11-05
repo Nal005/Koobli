@@ -234,8 +234,17 @@ footer {
 }
 
 .hero-estrelas {
+    display: flex;
+    align-items: center;
+    gap: 4px;
     color: var(--laranja);
     font-size: 18px;
+}
+
+/* A média e o número de avaliações, ou "Ainda sem avaliações" */
+.hero-estrelas span {
+    color: var(--texto-suave);
+    font-size: 14px;
 }
 
 .btn-adicionar {

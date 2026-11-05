@@ -26,6 +26,7 @@ $livro = $resultado->fetch_assoc();
 $userId = $_SESSION['user_id'];
 $favoritosApiIds = obterApiIdsFavoritos($conn, $userId);
 $ehFavorito = in_array($livro['api_id'], $favoritosApiIds);
+$mediaAvaliacoes = obterMediaAvaliacoes($conn, $livro['api_id']);
 
 
 $stmtAval = $conn->prepare("
@@ -51,6 +52,15 @@ $avaliacoes = $stmtAval->get_result();
             <div class="livro-detalhe-info">
                 <h2><?php echo htmlspecialchars($livro['titulo']); ?></h2>
                 <p class="hero-autor"><?php echo htmlspecialchars($livro['autor_principal']); ?></p>
+
+                <div class="hero-estrelas">
+                    <?php if ($mediaAvaliacoes['total'] > 0): ?>
+                        <?php echo iconesEstrelas($mediaAvaliacoes['media']); ?>
+                        <span><?php echo number_format($mediaAvaliacoes['media'], 1, ",", ""); ?> (<?php echo $mediaAvaliacoes['total'] == 1 ? "1 avaliação" : $mediaAvaliacoes['total'] . " avaliações"; ?>)</span>
+                    <?php else: ?>
+                        <span>Ainda sem avaliações</span>
+                    <?php endif; ?>
+                </div>
 
                 <form method="POST" action="../acoes/favoritar.php" class="form-favorito">
                     <?php echo campoCsrf(); ?>

@@ -57,3 +57,24 @@ function urlCapa($capa, $raiz = "") {
     }
     return $capa;
 }
+
+// Devolve a média (com uma casa decimal) e o número de avaliações de um livro.
+// Recebe o api_id porque o destaque do index.php só tem o id da Google Books.
+function obterMediaAvaliacoes($conn, $apiId) {
+    $stmt = $conn->prepare("
+        SELECT ROUND(AVG(a.nota), 1) AS media, COUNT(*) AS total
+        FROM avaliacoes a
+        JOIN livros l ON a.livro_id = l.id
+        WHERE l.api_id = ?
+    ");
+    $stmt->bind_param("s", $apiId);
+    $stmt->execute();
+    return $stmt->get_result()->fetch_assoc();
+}
+
+// Cinco estrelas: cheias até à nota (arredondada para baixo, 4,6 dá 4) e de contorno no resto
+function iconesEstrelas($nota) {
+    $cheias = (int) floor($nota);
+    return str_repeat('<i class="fi fi-ss-star"></i>', $cheias)
+        . str_repeat('<i class="fi fi-rs-star"></i>', 5 - $cheias);
+}
